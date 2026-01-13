@@ -1,0 +1,9 @@
+[package]
+name = "rust-chess-engine"
+version = "0.1.0"
+edition = "2021"
+authors = ["Gingnose"]
+
+[dependencies]
+
+[dev-dependencies]
