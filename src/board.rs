@@ -151,6 +151,129 @@ impl Board {
         board
     }
 
+    /// Create a board from FEN notation
+    /// FEN format: "r3k3/8/8/8/8/8/8/3AK3 w - - 0 1"
+    /// Supported pieces: K/k (King), A/a (Amazon), R/r (Rook), Q/q (Queen as Amazon)
+    pub fn from_fen(fen: &str) -> Option<Self> {
+        let parts: Vec<&str> = fen.split_whitespace().collect();
+        if parts.is_empty() {
+            return None;
+        }
+
+        let mut board = Board::new();
+
+        // Parse piece placement (first part)
+        let ranks: Vec<&str> = parts[0].split('/').collect();
+        if ranks.len() != 8 {
+            return None;
+        }
+
+        for (row, rank_str) in ranks.iter().enumerate() {
+            let mut col = 0usize;
+            for c in rank_str.chars() {
+                if col >= 8 {
+                    break;
+                }
+                match c {
+                    '1'..='8' => {
+                        // Empty squares
+                        col += c.to_digit(10).unwrap() as usize;
+                    }
+                    'K' => {
+                        board.set_piece((row as u8, col as u8), Some(Piece::new(PieceType::King, Color::White)));
+                        col += 1;
+                    }
+                    'k' => {
+                        board.set_piece((row as u8, col as u8), Some(Piece::new(PieceType::King, Color::Black)));
+                        col += 1;
+                    }
+                    'A' | 'Q' => {
+                        // Amazon (or Queen treated as Amazon for compatibility)
+                        board.set_piece((row as u8, col as u8), Some(Piece::new(PieceType::Amazon, Color::White)));
+                        col += 1;
+                    }
+                    'a' | 'q' => {
+                        board.set_piece((row as u8, col as u8), Some(Piece::new(PieceType::Amazon, Color::Black)));
+                        col += 1;
+                    }
+                    'R' => {
+                        board.set_piece((row as u8, col as u8), Some(Piece::new(PieceType::Rook, Color::White)));
+                        col += 1;
+                    }
+                    'r' => {
+                        board.set_piece((row as u8, col as u8), Some(Piece::new(PieceType::Rook, Color::Black)));
+                        col += 1;
+                    }
+                    _ => {
+                        // Unknown piece, skip
+                        col += 1;
+                    }
+                }
+            }
+        }
+
+        // Parse side to move (second part)
+        if parts.len() > 1 {
+            board.side_to_move = match parts[1] {
+                "w" | "W" => Color::White,
+                "b" | "B" => Color::Black,
+                _ => Color::White,
+            };
+        }
+
+        // Ignore castling, en passant, halfmove clock, and fullmove number for now
+
+        Some(board)
+    }
+
+    /// Convert board to FEN notation
+    pub fn to_fen(&self) -> String {
+        let mut fen = String::new();
+
+        // Piece placement
+        for row in 0..8 {
+            let mut empty_count = 0;
+            for col in 0..8 {
+                match self.squares[row][col] {
+                    None => {
+                        empty_count += 1;
+                    }
+                    Some(piece) => {
+                        if empty_count > 0 {
+                            fen.push_str(&empty_count.to_string());
+                            empty_count = 0;
+                        }
+                        let c = match piece.piece_type {
+                            PieceType::King => 'K',
+                            PieceType::Amazon => 'A',
+                            PieceType::Rook => 'R',
+                        };
+                        if piece.color == Color::Black {
+                            fen.push(c.to_ascii_lowercase());
+                        } else {
+                            fen.push(c);
+                        }
+                    }
+                }
+            }
+            if empty_count > 0 {
+                fen.push_str(&empty_count.to_string());
+            }
+            if row < 7 {
+                fen.push('/');
+            }
+        }
+
+        // Side to move
+        fen.push(' ');
+        fen.push(if self.side_to_move == Color::White { 'w' } else { 'b' });
+
+        // Simplified: no castling, no en passant
+        fen.push_str(" - - 0 1");
+
+        fen
+    }
+
     /// Execute a move, returns the Move with captured piece info for unmake
     pub fn make_move(&mut self, from: Square, to: Square) -> Move {
         let captured = self.get_piece(to);
@@ -744,5 +867,69 @@ mod tests {
         // Neither side is in stalemate
         assert!(!board.is_stalemate(Color::White));
         assert!(!board.is_stalemate(Color::Black));
+    }
+
+    #[test]
+    fn test_from_fen_starting_position() {
+        let fen = "r3k3/8/8/8/8/8/8/3AK3 w - - 0 1";
+        let board = Board::from_fen(fen).expect("FEN should parse");
+
+        // Black Rook on a8 (row 0, col 0)
+        let black_rook = board.get_piece((0, 0)).expect("Should have piece at a8");
+        assert_eq!(black_rook.piece_type, PieceType::Rook);
+        assert_eq!(black_rook.color, Color::Black);
+
+        // Black King on e8 (row 0, col 4)
+        let black_king = board.get_piece((0, 4)).expect("Should have piece at e8");
+        assert_eq!(black_king.piece_type, PieceType::King);
+        assert_eq!(black_king.color, Color::Black);
+
+        // White Amazon on d1 (row 7, col 3)
+        let white_amazon = board.get_piece((7, 3)).expect("Should have piece at d1");
+        assert_eq!(white_amazon.piece_type, PieceType::Amazon);
+        assert_eq!(white_amazon.color, Color::White);
+
+        // White King on e1 (row 7, col 4)
+        let white_king = board.get_piece((7, 4)).expect("Should have piece at e1");
+        assert_eq!(white_king.piece_type, PieceType::King);
+        assert_eq!(white_king.color, Color::White);
+
+        // White to move
+        assert_eq!(board.side_to_move(), Color::White);
+    }
+
+    #[test]
+    fn test_from_fen_black_to_move() {
+        let fen = "r3k3/8/8/8/8/8/8/3AK3 b - - 0 1";
+        let board = Board::from_fen(fen).expect("FEN should parse");
+        assert_eq!(board.side_to_move(), Color::Black);
+    }
+
+    #[test]
+    fn test_to_fen() {
+        let board = Board::setup_amazon_vs_rook();
+        let fen = board.to_fen();
+        assert_eq!(fen, "r3k3/8/8/8/8/8/8/3AK3 w - - 0 1");
+    }
+
+    #[test]
+    fn test_fen_roundtrip() {
+        let original = Board::setup_amazon_vs_rook();
+        let fen = original.to_fen();
+        let restored = Board::from_fen(&fen).expect("Should parse own FEN");
+
+        // Verify pieces match
+        for row in 0..8 {
+            for col in 0..8 {
+                assert_eq!(
+                    original.get_piece((row, col)),
+                    restored.get_piece((row, col)),
+                    "Piece mismatch at ({}, {})",
+                    row,
+                    col
+                );
+            }
+        }
+        assert_eq!(original.side_to_move(), restored.side_to_move());
     }
 }

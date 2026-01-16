@@ -67,6 +67,7 @@ pub fn uci_loop() {
             "uci" => {
                 println!("id name Amazon-vs-Rook Chess Engine");
                 println!("id author Gingnose");
+                println!("option name UCI_Variant type combo default amazon var amazon");
                 println!("option name Depth type spin default 4 min 1 max 10");
                 println!("uciok");
                 io::stdout().flush().unwrap();
@@ -129,23 +130,36 @@ fn parse_position(board: &mut Board, args: &[&str]) {
         return;
     }
 
+    // Find where "moves" keyword is (if present)
+    let moves_idx = args.iter().position(|&x| x == "moves");
+
     // Parse position type
     match args[0] {
         "startpos" => {
             *board = Board::setup_amazon_vs_rook();
         }
         "fen" => {
-            // For now, just use startpos (FEN parsing not implemented)
-            // In a full implementation, we would parse the FEN string
-            *board = Board::setup_amazon_vs_rook();
+            // Collect FEN parts (everything between "fen" and "moves" or end)
+            let fen_end = moves_idx.unwrap_or(args.len());
+            if fen_end > 1 {
+                let fen_parts = &args[1..fen_end];
+                let fen_string = fen_parts.join(" ");
+                if let Some(parsed_board) = Board::from_fen(&fen_string) {
+                    *board = parsed_board;
+                } else {
+                    // FEN parsing failed, use default position
+                    *board = Board::setup_amazon_vs_rook();
+                }
+            } else {
+                *board = Board::setup_amazon_vs_rook();
+            }
         }
         _ => {
             return;
         }
     }
 
-    // Find "moves" keyword and apply moves
-    let moves_idx = args.iter().position(|&x| x == "moves");
+    // Apply moves if present
     if let Some(idx) = moves_idx {
         for move_str in &args[idx + 1..] {
             if let Some((from, to)) = parse_uci_move(move_str) {

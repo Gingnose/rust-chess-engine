@@ -1,0 +1,21 @@
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-Stockfish"]
+[Result "0-1"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:10"]
+[GameEndTime "2026-01-17T05:55:24.236 JST"]
+[GameStartTime "2026-01-17T05:55:14.014 JST"]
+[PlyCount "22"]
+[SetUp "1"]
+[TimeControl "60+1"]
+[Variant "amazon"]
+
+1. Kd2 Rd5+ {0.00/77 1.7s} 2. Ke3 Rxd1 {+M29/35 0.91s} 3. Ke4 Rd8 {+M25/36 1.0s}
+4. Kf4 Rd4+ {+M23/39 1.0s} 5. Ke3 Ke5 {+M21/38 1.1s} 6. Kf3 Rd3+ {+M19/40 1.6s}
+7. Kg4 Rb3 {+M15/44 1.1s} 8. Kg5 Rg3+ {+M13/50 1.3s} 9. Kh6 Kf5 {+M7/245 0.36s}
+10. Kh7 Kf6 {+M5/245 0.007s} 11. Kh6 Rh3# {+M1/245 0.001s, Black mates} 0-1
+
