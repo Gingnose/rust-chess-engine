@@ -1,0 +1,981 @@
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "0-1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:18:58.214 JST"]
+[GameStartTime "2026-01-17T06:18:58.180 JST"]
+[PlyCount "0"]
+[Termination "illegal move"]
+[TimeControl "10+0.1"]
+
+{White makes an illegal move: d1d6} 0-1
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[ECO "B00"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:18:58.966 JST"]
+[GameStartTime "2026-01-17T06:18:58.215 JST"]
+[Opening "King's pawn Opening"]
+[PlyCount "1"]
+[Termination "illegal move"]
+[TimeControl "10+0.1"]
+
+1. e4 {+0.66/18 0.72s, Black makes an illegal move: d1d6} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "0-1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:18:58.999 JST"]
+[GameStartTime "2026-01-17T06:18:58.968 JST"]
+[PlyCount "0"]
+[Termination "illegal move"]
+[TimeControl "10+0.1"]
+
+{White makes an illegal move: d1d6} 0-1
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[ECO "B00"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:18:59.752 JST"]
+[GameStartTime "2026-01-17T06:18:59.000 JST"]
+[Opening "King's pawn Opening"]
+[PlyCount "1"]
+[Termination "illegal move"]
+[TimeControl "10+0.1"]
+
+1. e4 {+0.66/18 0.72s, Black makes an illegal move: d1d6} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "0-1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:18:59.785 JST"]
+[GameStartTime "2026-01-17T06:18:59.753 JST"]
+[PlyCount "0"]
+[Termination "illegal move"]
+[TimeControl "10+0.1"]
+
+{White makes an illegal move: d1d6} 0-1
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[ECO "B00"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:00.527 JST"]
+[GameStartTime "2026-01-17T06:18:59.785 JST"]
+[Opening "King's pawn Opening"]
+[PlyCount "1"]
+[Termination "illegal move"]
+[TimeControl "10+0.1"]
+
+1. e4 {+0.66/18 0.71s, Black makes an illegal move: d1d6} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "0-1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:00.561 JST"]
+[GameStartTime "2026-01-17T06:19:00.528 JST"]
+[PlyCount "0"]
+[Termination "illegal move"]
+[TimeControl "10+0.1"]
+
+{White makes an illegal move: d1d6} 0-1
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[ECO "B00"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:01.271 JST"]
+[GameStartTime "2026-01-17T06:19:00.561 JST"]
+[Opening "King's pawn Opening"]
+[PlyCount "1"]
+[Termination "illegal move"]
+[TimeControl "10+0.1"]
+
+1. e4 {+0.66/18 0.68s, Black makes an illegal move: d1d6} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "0-1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:01.408 JST"]
+[GameStartTime "2026-01-17T06:19:01.271 JST"]
+[PlyCount "0"]
+[Termination "illegal move"]
+[TimeControl "10+0.1"]
+
+{White makes an illegal move: d1d6} 0-1
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[ECO "B00"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:02.181 JST"]
+[GameStartTime "2026-01-17T06:19:01.409 JST"]
+[Opening "King's pawn Opening"]
+[PlyCount "1"]
+[Termination "illegal move"]
+[TimeControl "10+0.1"]
+
+1. e4 {+0.66/18 0.74s, Black makes an illegal move: d1d6} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:19:18.752 JST"]
+[GameStartTime "2026-01-17T06:19:17.370 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.22s} 2. Ke3 Re5+ {-M12/49 0.11s} 3. Kf4
+Rf5+ {-M10/87 0.12s} 4. Kg4 Rd5 {-M8/126 0.13s} 5. Af3 Kd6 {-M8/80 0.13s}
+6. Ae4+ Kc6 {-M6/245 0.084s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.001s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:19.379 JST"]
+[GameStartTime "2026-01-17T06:19:18.753 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/30 0.074s} Rf5+ 2. Ke2 {+M13/40 0.11s} Rf8 3. Ad4+ {+M5/245 0.061s}
+Ke7 4. Ad5+ {+M3/245 0.004s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:19:20.764 JST"]
+[GameStartTime "2026-01-17T06:19:19.380 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.23s} 2. Ke3 Re5+ {-M12/50 0.11s} 3. Kf4
+Rf5+ {-M10/73 0.12s} 4. Kg4 Rd5 {-M8/115 0.13s} 5. Af3 Kd6 {-M8/80 0.13s}
+6. Ae4+ Kc6 {-M6/245 0.083s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.002s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:21.380 JST"]
+[GameStartTime "2026-01-17T06:19:20.764 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/30 0.073s} Rf5+ 2. Ke2 {+M13/40 0.11s} Rf8 3. Ad4+ {+M5/245 0.060s}
+Ke7 4. Ad5+ {+M3/245 0.004s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:19:22.752 JST"]
+[GameStartTime "2026-01-17T06:19:21.380 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.22s} 2. Ke3 Re5+ {-M12/50 0.11s} 3. Kf4
+Rf5+ {-M10/88 0.12s} 4. Kg4 Rd5 {-M8/129 0.13s} 5. Af3 Kd6 {-M8/77 0.14s}
+6. Ae4+ Kc6 {-M6/245 0.085s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.001s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:23.364 JST"]
+[GameStartTime "2026-01-17T06:19:22.752 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/30 0.072s} Rf5+ 2. Ke2 {+M13/40 0.11s} Rf8 3. Ad4+ {+M5/245 0.060s}
+Ke7 4. Ad5+ {+M3/245 0.003s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:19:24.770 JST"]
+[GameStartTime "2026-01-17T06:19:23.365 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.22s} 2. Ke3 Re5+ {-M12/50 0.12s} 3. Kf4
+Rf5+ {-M10/90 0.12s} 4. Kg4 Rd5 {-M8/130 0.13s} 5. Af3 Kd6 {-M8/82 0.14s}
+6. Ae4+ Kc6 {-M6/245 0.093s} 7. Ab4+ Kd7 {-M4/245 0.006s} 8. Axd5+
+Ke8 {-M2/245 0.002s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:25.508 JST"]
+[GameStartTime "2026-01-17T06:19:24.770 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/29 0.070s} Rf5+ 2. Ke2 {+M13/44 0.12s} Rf8 3. Ad4+ {+M5/245 0.084s}
+Ke7 4. Ad5+ {+M3/245 0.004s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:19:27.020 JST"]
+[GameStartTime "2026-01-17T06:19:25.508 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/39 0.23s} 2. Ke3 Re5+ {-M12/46 0.12s} 3. Kf4
+Rf5+ {-M10/68 0.12s} 4. Kg4 Rd5 {-M8/118 0.13s} 5. Af3 Kd6 {-M8/82 0.14s}
+6. Ae4+ Kc6 {-M6/245 0.097s} 7. Ab4+ Kd7 {-M4/245 0.006s} 8. Axd5+
+Ke8 {-M2/245 0.002s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:27.681 JST"]
+[GameStartTime "2026-01-17T06:19:27.020 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/27 0.068s} Rf5+ 2. Ke2 {+M13/31 0.11s} Rf8 3. Ad4+ {+M5/245 0.069s}
+Ke7 4. Ad5+ {+M3/245 0.004s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:19:41.986 JST"]
+[GameStartTime "2026-01-17T06:19:40.630 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.22s} 2. Ke3 Re5+ {-M12/48 0.11s} 3. Kf4
+Rf5+ {-M10/90 0.12s} 4. Kg4 Rd5 {-M8/129 0.13s} 5. Af3 Kd6 {-M8/84 0.14s}
+6. Ae4+ Kc6 {-M6/245 0.082s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.001s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:42.604 JST"]
+[GameStartTime "2026-01-17T06:19:41.987 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/28 0.072s} Rf5+ 2. Ke2 {+M13/42 0.11s} Rf8 3. Ad4+ {+M5/245 0.061s}
+Ke7 4. Ad5+ {+M3/245 0.004s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:19:43.961 JST"]
+[GameStartTime "2026-01-17T06:19:42.607 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.22s} 2. Ke3 Re5+ {-M12/48 0.11s} 3. Kf4
+Rf5+ {-M10/89 0.12s} 4. Kg4 Rd5 {-M8/127 0.13s} 5. Af3 Kd6 {-M8/84 0.13s}
+6. Ae4+ Kc6 {-M6/245 0.082s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.002s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:44.579 JST"]
+[GameStartTime "2026-01-17T06:19:43.961 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/30 0.071s} Rf5+ 2. Ke2 {+M13/40 0.11s} Rf8 3. Ad4+ {+M5/245 0.061s}
+Ke7 4. Ad5+ {+M3/245 0.003s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:19:45.942 JST"]
+[GameStartTime "2026-01-17T06:19:44.579 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/42 0.23s} 2. Ke3 Re5+ {-M12/48 0.11s} 3. Kf4
+Rf5+ {-M10/89 0.12s} 4. Kg4 Rd5 {-M8/125 0.13s} 5. Af3 Kd6 {-M8/82 0.13s}
+6. Ae4+ Kc6 {-M6/245 0.084s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.002s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:46.551 JST"]
+[GameStartTime "2026-01-17T06:19:45.942 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/28 0.068s} Rf5+ 2. Ke2 {+M13/41 0.11s} Rf8 3. Ad4+ {+M5/245 0.060s}
+Ke7 4. Ad5+ {+M3/245 0.004s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:19:47.916 JST"]
+[GameStartTime "2026-01-17T06:19:46.551 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.22s} 2. Ke3 Re5+ {-M12/50 0.11s} 3. Kf4
+Rf5+ {-M10/90 0.12s} 4. Kg4 Rd5 {-M8/125 0.13s} 5. Af3 Kd6 {-M8/86 0.14s}
+6. Ae4+ Kc6 {-M6/245 0.083s} 7. Ab4+ Kd7 {-M4/245 0.006s} 8. Axd5+
+Ke8 {-M2/245 0.002s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:48.533 JST"]
+[GameStartTime "2026-01-17T06:19:47.917 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/30 0.072s} Rf5+ 2. Ke2 {+M13/40 0.11s} Rf8 3. Ad4+ {+M5/245 0.062s}
+Ke7 4. Ad5+ {+M3/245 0.004s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:19:49.896 JST"]
+[GameStartTime "2026-01-17T06:19:48.533 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.22s} 2. Ke3 Re5+ {-M12/50 0.12s} 3. Kf4
+Rf5+ {-M10/89 0.12s} 4. Kg4 Rd5 {-M8/127 0.13s} 5. Af3 Kd6 {-M8/84 0.13s}
+6. Ae4+ Kc6 {-M6/245 0.082s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.002s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:19:50.535 JST"]
+[GameStartTime "2026-01-17T06:19:49.896 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/28 0.071s} Rf5+ 2. Ke2 {+M13/42 0.11s} Rf8 3. Ad4+ {+M5/245 0.061s}
+Ke7 4. Ad5+ {+M3/245 0.003s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:19:58.015 JST"]
+[GameStartTime "2026-01-17T06:19:56.659 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.22s} 2. Ke3 Re5+ {-M12/49 0.11s} 3. Kf4
+Rf5+ {-M10/89 0.12s} 4. Kg4 Rd5 {-M8/126 0.13s} 5. Af3 Kd6 {-M8/83 0.13s}
+6. Ae4+ Kc6 {-M6/245 0.083s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.003s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "2"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:19:59.281 JST"]
+[GameStartTime "2026-01-17T06:19:58.016 JST"]
+[PlyCount "13"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/27 0.069s} Rf5+ 2. Ke3 {+M13/41 0.12s} Re5+ 3. Kf3 {+M11/62 0.12s}
+Rf5+ 4. Kg4 {+M9/88 0.13s} Rf8 5. Ad4+ {+M5/245 0.075s} Ke7
+6. Ae5+ {+M3/245 0.006s} Kd8 7. Ae6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "3"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:00.847 JST"]
+[GameStartTime "2026-01-17T06:19:59.286 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/41 0.23s} 2. Ke3 Re5+ {-M12/49 0.12s} 3. Kf4
+Rf5+ {-M10/89 0.12s} 4. Kg4 Rd5 {-M8/125 0.13s} 5. Af3 Kd6 {-M8/37 0.14s}
+6. Ae4+ Kc6 {-M6/245 0.093s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.003s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "4"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:20:01.624 JST"]
+[GameStartTime "2026-01-17T06:20:00.848 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/30 0.073s} Rf5+ 2. Ke2 {+M13/40 0.11s} Rf8 3. Ad4+ {+M5/224 0.12s}
+Ke7 4. Ad5+ {+M3/245 0.006s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "5"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:03.023 JST"]
+[GameStartTime "2026-01-17T06:20:01.625 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/41 0.23s} 2. Ke3 Re5+ {-M12/48 0.12s} 3. Kf4
+Rf5+ {-M10/89 0.12s} 4. Kg4 Rd5 {-M8/128 0.13s} 5. Af3 Kd6 {-M8/87 0.14s}
+6. Ae4+ Kc6 {-M6/245 0.082s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.002s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "6"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:20:03.642 JST"]
+[GameStartTime "2026-01-17T06:20:03.024 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/28 0.069s} Rf5+ 2. Ke2 {+M13/42 0.11s} Rf8 3. Ad4+ {+M5/245 0.063s}
+Ke7 4. Ad5+ {+M3/245 0.003s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "7"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:05.003 JST"]
+[GameStartTime "2026-01-17T06:20:03.643 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.22s} 2. Ke3 Re5+ {-M12/49 0.11s} 3. Kf4
+Rf5+ {-M10/90 0.12s} 4. Kg4 Rd5 {-M8/131 0.13s} 5. Af3 Kd6 {-M8/84 0.13s}
+6. Ae4+ Kc6 {-M6/245 0.082s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.001s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "8"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:20:05.631 JST"]
+[GameStartTime "2026-01-17T06:20:05.003 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/28 0.069s} Rf5+ 2. Ke2 {+M13/41 0.11s} Rf8 3. Ad4+ {+M5/245 0.066s}
+Ke7 4. Ad5+ {+M3/245 0.004s} Ke8 5. Ad6# {+M1/245 0.003s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "9"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:07.004 JST"]
+[GameStartTime "2026-01-17T06:20:05.631 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.23s} 2. Ke3 Re5+ {-M12/49 0.11s} 3. Kf4
+Rf5+ {-M10/88 0.12s} 4. Kg4 Rd5 {-M8/127 0.13s} 5. Af3 Kd6 {-M8/80 0.14s}
+6. Ae4+ Kc6 {-M6/245 0.083s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.001s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "10"]
+[White "Fairy-SF"]
+[Black "Amazon-Engine"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:00"]
+[GameEndTime "2026-01-17T06:20:07.618 JST"]
+[GameStartTime "2026-01-17T06:20:07.005 JST"]
+[PlyCount "9"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 {+M15/28 0.069s} Rf5+ 2. Ke2 {+M13/41 0.11s} Rf8 3. Ad4+ {+M5/245 0.062s}
+Ke7 4. Ad5+ {+M3/245 0.004s} Ke8 5. Ad6# {+M1/245 0.004s, White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:17.038 JST"]
+[GameStartTime "2026-01-17T06:20:15.673 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/41 0.22s} 2. Ke3 Re5+ {-M12/48 0.12s} 3. Kf4
+Rf5+ {-M10/90 0.12s} 4. Kg4 Rd5 {-M8/128 0.13s} 5. Af3 Rc5 {-M8/80 0.13s}
+6. Ad4+ Ke7 {-M6/245 0.082s} 7. Axc5+ Kf7 {-M4/245 0.004s} 8. Ae5+
+Kg8 {-M2/245 0.001s} 9. Af6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:18.420 JST"]
+[GameStartTime "2026-01-17T06:20:17.038 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.23s} 2. Ke3 Re5+ {-M12/49 0.12s} 3. Kf4
+Rf5+ {-M10/89 0.12s} 4. Kg4 Rd5 {-M8/126 0.13s} 5. Af3 Kd6 {-M8/82 0.13s}
+6. Ae4+ Kc6 {-M6/245 0.085s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.002s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:19.787 JST"]
+[GameStartTime "2026-01-17T06:20:18.422 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.22s} 2. Ke3 Re5+ {-M12/50 0.12s} 3. Kf4
+Rf5+ {-M10/89 0.12s} 4. Kg4 Rd5 {-M8/127 0.13s} 5. Af3 Kd6 {-M8/82 0.13s}
+6. Ae4+ Kc6 {-M6/245 0.083s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.001s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:21.173 JST"]
+[GameStartTime "2026-01-17T06:20:19.788 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/38 0.23s} 2. Ke3 Re5+ {-M12/48 0.12s} 3. Kf4
+Rf5+ {-M10/86 0.12s} 4. Kg4 Rd5 {-M8/128 0.13s} 5. Af3 Rc5 {-M8/77 0.14s}
+6. Ad4+ Ke7 {-M6/245 0.078s} 7. Axc5+ Kf7 {-M4/245 0.003s} 8. Ae5+
+Kg8 {-M2/245 0.002s} 9. Af6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:22.574 JST"]
+[GameStartTime "2026-01-17T06:20:21.174 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/42 0.23s} 2. Ke3 Re5+ {-M12/49 0.11s} 3. Kf4
+Rf5+ {-M10/88 0.12s} 4. Kg4 Rd5 {-M8/127 0.13s} 5. Af3 Rc5 {-M8/76 0.14s}
+6. Ad4+ Ke7 {-M6/245 0.084s} 7. Axc5+ Kf7 {-M4/245 0.004s} 8. Ae5+
+Kg8 {-M2/245 0.001s} 9. Af6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:23.972 JST"]
+[GameStartTime "2026-01-17T06:20:22.574 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/42 0.23s} 2. Ke3 Re5+ {-M12/50 0.12s} 3. Kf4
+Rf5+ {-M10/87 0.12s} 4. Kg4 Rd5 {-M8/122 0.13s} 5. Af3 Kd6 {-M8/83 0.14s}
+6. Ae4+ Kc6 {-M6/245 0.083s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.001s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:25.334 JST"]
+[GameStartTime "2026-01-17T06:20:23.972 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.22s} 2. Ke3 Re5+ {-M12/49 0.11s} 3. Kf4
+Rf5+ {-M10/87 0.12s} 4. Kg4 Rd5 {-M8/128 0.13s} 5. Af3 Kd6 {-M8/79 0.14s}
+6. Ae4+ Kc6 {-M6/245 0.084s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.002s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:26.694 JST"]
+[GameStartTime "2026-01-17T06:20:25.335 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/42 0.22s} 2. Ke3 Re5+ {-M12/49 0.11s} 3. Kf4
+Rf5+ {-M10/86 0.12s} 4. Kg4 Rd5 {-M8/128 0.13s} 5. Af3 Kd6 {-M8/79 0.14s}
+6. Ae4+ Kc6 {-M6/245 0.083s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.001s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:28.068 JST"]
+[GameStartTime "2026-01-17T06:20:26.694 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/41 0.22s} 2. Ke3 Re5+ {-M12/49 0.12s} 3. Kf4
+Rf5+ {-M10/89 0.12s} 4. Kg4 Rd5 {-M8/130 0.13s} 5. Af3 Kd6 {-M8/84 0.14s}
+6. Ae4+ Kc6 {-M6/245 0.083s} 7. Ab4+ Kd7 {-M4/245 0.007s} 8. Axd5+
+Ke8 {-M2/245 0.001s} 9. Ad6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:20:29.445 JST"]
+[GameStartTime "2026-01-17T06:20:28.069 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/43 0.22s} 2. Ke3 Re5+ {-M12/49 0.11s} 3. Kf4
+Rf5+ {-M10/89 0.12s} 4. Kg4 Rd5 {-M8/125 0.13s} 5. Af3 Kd6 {-M8/83 0.13s}
+6. Ae4+ Kc6 {-M6/245 0.083s} 7. Ab4+ Kd7 {-M4/245 0.005s} 8. Axd5+
+Ke8 {-M2/245 0.001s} 9. Ad6# {White mates} 1-0
+

@@ -185,15 +185,121 @@ fn evaluate_king_proximity(our_king: Square, enemy_king: Square) -> i32 {
 }
 
 // =============================================================================
+// Move Ordering (for better Alpha-Beta pruning)
+// =============================================================================
+
+/// Get the material value of a piece type
+fn piece_value(piece_type: PieceType) -> i32 {
+    match piece_type {
+        PieceType::Amazon => AMAZON_VALUE,
+        PieceType::Rook => ROOK_VALUE,
+        PieceType::King => 10000, // King is invaluable
+    }
+}
+
+/// Score a move for ordering purposes
+/// Higher score = should be searched first
+fn score_move(board: &Board, mv: &Move) -> i32 {
+    let mut score = 0;
+
+    // 1. Captures are very important - use MVV-LVA
+    //    (Most Valuable Victim - Least Valuable Attacker)
+    if let Some(captured) = mv.captured {
+        // Value of captured piece minus a fraction of attacker value
+        let victim_value = piece_value(captured.piece_type);
+        
+        // Get attacker piece type
+        if let Some(attacker) = board.get_piece(mv.from) {
+            let attacker_value = piece_value(attacker.piece_type);
+            // MVV-LVA: prioritize capturing valuable pieces with less valuable pieces
+            score += 10000 + victim_value - attacker_value / 100;
+        } else {
+            score += 10000 + victim_value;
+        }
+    }
+
+    score
+}
+
+/// Order moves for better Alpha-Beta pruning efficiency
+/// Captures are searched first (MVV-LVA ordering)
+fn order_moves(board: &Board, moves: Vec<Move>) -> Vec<Move> {
+    let mut scored_moves: Vec<(Move, i32)> = moves
+        .into_iter()
+        .map(|mv| {
+            let score = score_move(board, &mv);
+            (mv, score)
+        })
+        .collect();
+
+    // Sort in descending order (highest score first)
+    scored_moves.sort_by(|a, b| b.1.cmp(&a.1));
+
+    scored_moves.into_iter().map(|(mv, _)| mv).collect()
+}
+
+// =============================================================================
+// Quiescence Search (to avoid horizon effect)
+// =============================================================================
+
+/// Quiescence search - continue searching captures at depth 0
+/// This prevents the "horizon effect" where the engine stops searching
+/// right before a major tactical change (like a piece being captured)
+fn quiescence(board: &mut Board, mut alpha: i32, beta: i32) -> i32 {
+    // "Stand pat" - evaluate the current position
+    let stand_pat = evaluate(board);
+
+    // If standing pat is good enough, we can prune
+    if stand_pat >= beta {
+        return beta;
+    }
+
+    // Update alpha if stand pat is better
+    if stand_pat > alpha {
+        alpha = stand_pat;
+    }
+
+    // Generate only capture moves
+    let all_moves = board.generate_legal_moves();
+    let captures: Vec<Move> = all_moves
+        .into_iter()
+        .filter(|mv| mv.captured.is_some())
+        .collect();
+
+    // If no captures, return the stand pat score
+    if captures.is_empty() {
+        return stand_pat;
+    }
+
+    // Order captures (MVV-LVA)
+    let ordered_captures = order_moves(board, captures);
+
+    for mv in ordered_captures {
+        board.make_move(mv.from, mv.to);
+        let score = -quiescence(board, -beta, -alpha);
+        board.unmake_move(mv);
+
+        if score >= beta {
+            return beta; // Beta cutoff
+        }
+        if score > alpha {
+            alpha = score;
+        }
+    }
+
+    alpha
+}
+
+// =============================================================================
 // Search Algorithm: Negamax with Alpha-Beta Pruning
 // =============================================================================
 
 /// Negamax search with Alpha-Beta pruning
 /// Returns the score of the position from the side to move's perspective
 pub fn negamax(board: &mut Board, depth: i32, mut alpha: i32, beta: i32) -> i32 {
-    // Base case: reached maximum depth or terminal state
+    // Base case: reached maximum depth - use quiescence search
     if depth == 0 {
-        return evaluate(board);
+        return quiescence(board, alpha, beta);
     }
 
     let moves = board.generate_legal_moves();
@@ -210,9 +316,12 @@ pub fn negamax(board: &mut Board, depth: i32, mut alpha: i32, beta: i32) -> i32 
         }
     }
 
+    // Order moves for better pruning (captures first)
+    let ordered_moves = order_moves(board, moves);
+
     let mut best_score = -INFINITY;
 
-    for mv in moves {
+    for mv in ordered_moves {
         board.make_move(mv.from, mv.to);
         let score = -negamax(board, depth - 1, -beta, -alpha);
         board.unmake_move(mv);
@@ -237,12 +346,15 @@ pub fn find_best_move(board: &mut Board, depth: i32) -> Option<(Move, i32)> {
         return None;
     }
 
+    // Order moves for better pruning
+    let ordered_moves = order_moves(board, moves);
+
     let mut best_move = None;
     let mut best_score = -INFINITY;
     let mut alpha = -INFINITY;
     let beta = INFINITY;
 
-    for mv in moves {
+    for mv in ordered_moves {
         board.make_move(mv.from, mv.to);
         let score = -negamax(board, depth - 1, -beta, -alpha);
         board.unmake_move(mv);
