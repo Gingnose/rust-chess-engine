@@ -242,6 +242,37 @@ impl Board {
 
         legal_moves
     }
+
+    /// Check if the given color is in checkmate
+    pub fn is_checkmate(&mut self, color: Color) -> bool {
+        if !self.is_in_check(color) {
+            return false; // Not in check, can't be checkmate
+        }
+
+        // Save and set correct side to move
+        let original_side = self.side_to_move;
+        self.side_to_move = color;
+
+        let has_no_moves = self.generate_legal_moves().is_empty();
+
+        self.side_to_move = original_side;
+        has_no_moves
+    }
+
+    /// Check if the given color is in stalemate
+    pub fn is_stalemate(&mut self, color: Color) -> bool {
+        if self.is_in_check(color) {
+            return false; // In check, can't be stalemate
+        }
+
+        let original_side = self.side_to_move;
+        self.side_to_move = color;
+
+        let has_no_moves = self.generate_legal_moves().is_empty();
+
+        self.side_to_move = original_side;
+        has_no_moves
+    }
 }
 
 // =============================================================================
@@ -615,5 +646,98 @@ mod tests {
 
         // Black king has no legal moves - checkmate!
         assert_eq!(legal_moves.len(), 0, "Should be checkmate with no legal moves");
+    }
+
+    #[test]
+    fn test_is_checkmate() {
+        let mut board = Board::new();
+
+        // Black king at a8 (row 0, col 0) - corner
+        board.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
+
+        // White king at a6 (row 2, col 0) - cuts off escape
+        board.set_piece((2, 0), Some(Piece::new(PieceType::King, Color::White)));
+
+        // White QNC at b6 (row 2, col 1) - gives check and covers escape squares
+        board.set_piece((2, 1), Some(Piece::new(PieceType::QNC, Color::White)));
+
+        // Black is in checkmate
+        assert!(board.is_checkmate(Color::Black));
+
+        // White is not in checkmate
+        assert!(!board.is_checkmate(Color::White));
+    }
+
+    #[test]
+    fn test_is_not_checkmate_when_not_in_check() {
+        let mut board = Board::new();
+
+        // White king at e1
+        board.set_piece((7, 4), Some(Piece::new(PieceType::King, Color::White)));
+
+        // Black king far away
+        board.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
+
+        // Neither side is in checkmate
+        assert!(!board.is_checkmate(Color::White));
+        assert!(!board.is_checkmate(Color::Black));
+    }
+
+    #[test]
+    fn test_is_stalemate() {
+        let mut board = Board::new();
+
+        // Stalemate position using only Kings (K vs K can create stalemate):
+        // Black king at a8 (row 0, col 0)
+        // White king at b6 (row 2, col 1) - controls a7, b7
+        // White QNC somewhere that blocks a7 but NOT a8
+        //
+        // Actually, for simplicity, let's create stalemate with K + QNC vs K:
+        // Black king at h8 (row 0, col 7)
+        // White king at h6 (row 2, col 7) - controls g7, h7 (same file, blocks those)
+        // White QNC at f7 (row 1, col 5) - needs to block g8 without attacking h8
+        //   f7 to h8: (-1, +2) -> this is a knight move! Attacks h8!
+        //
+        // Let's try QNC at e6 (row 2, col 4):
+        //   e6 to h8: (-2, +3) -> NOT any valid move (not queen/knight/camel)
+        //   e6 to g8: (-2, +2) -> diagonal, attacks g8
+        //   e6 to g7: (-1, +2) -> knight move, attacks g7  
+        //   e6 to h7: (-1, +3) -> camel move! (1,3), attacks h7
+        //
+        // So with White king at h6 and QNC at e6:
+        //   h8 -> NOT attacked (good!)
+        //   g8 -> attacked by QNC (diagonal)
+        //   g7 -> attacked by QNC (knight) and White king
+        //   h7 -> attacked by QNC (camel) and White king
+        //
+        // Black king at h8 has no legal moves = stalemate!
+
+        board.set_piece((0, 7), Some(Piece::new(PieceType::King, Color::Black))); // h8
+        board.set_piece((2, 7), Some(Piece::new(PieceType::King, Color::White))); // h6
+        board.set_piece((2, 4), Some(Piece::new(PieceType::QNC, Color::White)));  // e6
+
+        // Verify: black king at h8 is NOT in check
+        assert!(!board.is_in_check(Color::Black), "Black should NOT be in check for stalemate");
+
+        // Black is in stalemate (not in check, but no legal moves)
+        assert!(board.is_stalemate(Color::Black));
+
+        // Black is NOT in checkmate
+        assert!(!board.is_checkmate(Color::Black));
+    }
+
+    #[test]
+    fn test_not_stalemate_with_legal_moves() {
+        let mut board = Board::new();
+
+        // White king at e4 (center, has moves)
+        board.set_piece((4, 4), Some(Piece::new(PieceType::King, Color::White)));
+
+        // Black king far away
+        board.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
+
+        // Neither side is in stalemate
+        assert!(!board.is_stalemate(Color::White));
+        assert!(!board.is_stalemate(Color::Black));
     }
 }
