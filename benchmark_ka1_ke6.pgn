@@ -1,0 +1,210 @@
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/3r1r2/4k3/3r1r2/8/8/8/K2A1A2 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:57:58.420 JST"]
+[GameStartTime "2026-01-17T06:57:56.325 JST"]
+[PlyCount "19"]
+[SetUp "1"]
+[TimeControl "30+0.5"]
+[Variant "amazon"]
+
+1. Ade3+ Rde5 {-M6/245 0.17s} 2. Afc4+ Ke7 {-M4/245 0.005s} 3. Ac8+
+Kf6 {-M2/245 0.003s} 4. Ag4+ Ke6 {-M4/245 0.007s} 5. Ae8+ Rde7 {-M2/245 0.002s}
+6. Ac4+ Rd5 {-M2/245 0.002s} 7. Acc6+ Rd6 {-M2/245 0.002s} 8. Aed8+
+Kf6 {-M4/245 0.007s} 9. Adxd6+ Re6 {-M2/245 0.002s} 10. Axe6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/3r1r2/4k3/3r1r2/8/8/8/K2A1A2 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:58:00.508 JST"]
+[GameStartTime "2026-01-17T06:57:58.421 JST"]
+[PlyCount "19"]
+[SetUp "1"]
+[TimeControl "30+0.5"]
+[Variant "amazon"]
+
+1. Ade3+ Rde5 {-M6/245 0.17s} 2. Afc4+ Ke7 {-M4/245 0.005s} 3. Ac8+
+Kf6 {-M2/245 0.002s} 4. Ag4+ Ke6 {-M4/245 0.007s} 5. Ae8+ Rde7 {-M2/245 0.002s}
+6. Ac4+ Rd5 {-M2/245 0.002s} 7. Acc6+ Rd6 {-M2/245 0.002s} 8. Aed8+
+Kf6 {-M4/245 0.007s} 9. Adxd6+ Re6 {-M2/245 0.002s} 10. Axe6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/3r1r2/4k3/3r1r2/8/8/8/K2A1A2 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:58:03.160 JST"]
+[GameStartTime "2026-01-17T06:58:00.509 JST"]
+[PlyCount "19"]
+[SetUp "1"]
+[TimeControl "30+0.5"]
+[Variant "amazon"]
+
+1. Ade3+ Rde5 {-M6/245 0.17s} 2. Afc4+ Ke7 {-M4/245 0.005s} 3. Ac8+ {0.73s}
+Kf6 {-M2/245 0.006s} 4. Ag4+ Ke6 {-M4/245 0.011s} 5. Ae8+ Rde7 {-M2/245 0.002s}
+6. Ac4+ Rd5 {-M2/245 0.002s} 7. Acc6+ Rd6 {-M2/245 0.002s} 8. Aed8+
+Kf6 {-M4/245 0.008s} 9. Adxd6+ Re6 {-M2/245 0.002s} 10. Axe6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/3r1r2/4k3/3r1r2/8/8/8/K2A1A2 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:58:05.301 JST"]
+[GameStartTime "2026-01-17T06:58:03.161 JST"]
+[PlyCount "19"]
+[SetUp "1"]
+[TimeControl "30+0.5"]
+[Variant "amazon"]
+
+1. Ade3+ Rde5 {-M6/245 0.18s} 2. Afc4+ Ke7 {-M4/245 0.005s} 3. Ac8+
+Kf6 {-M2/245 0.002s} 4. Ag4+ Ke6 {-M4/245 0.007s} 5. Ae8+ Rde7 {-M2/245 0.002s}
+6. Ac4+ Rd5 {-M2/245 0.002s} 7. Acc6+ Rd6 {-M2/245 0.002s} 8. Aed8+
+Kf6 {-M4/245 0.007s} 9. Adxd6+ Re6 {-M2/245 0.002s} 10. Axe6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/3r1r2/4k3/3r1r2/8/8/8/K2A1A2 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:58:07.520 JST"]
+[GameStartTime "2026-01-17T06:58:05.302 JST"]
+[PlyCount "19"]
+[SetUp "1"]
+[TimeControl "30+0.5"]
+[Variant "amazon"]
+
+1. Ade3+ Rde5 {-M6/245 0.17s} 2. Afc4+ Ke7 {-M4/245 0.005s} 3. Ac8+
+Kf6 {-M2/245 0.002s} 4. Ag4+ Ke6 {-M4/245 0.007s} 5. Ae8+ Rde7 {-M2/245 0.002s}
+6. Ac4+ Rd5 {-M2/245 0.002s} 7. Acc6+ Rd6 {-M2/245 0.002s} 8. Aed8+
+Kf6 {-M4/245 0.007s} 9. Adxd6+ Re6 {-M2/245 0.002s} 10. Axe6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/3r1r2/4k3/3r1r2/8/8/8/K2A1A2 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:58:09.632 JST"]
+[GameStartTime "2026-01-17T06:58:07.521 JST"]
+[PlyCount "19"]
+[SetUp "1"]
+[TimeControl "30+0.5"]
+[Variant "amazon"]
+
+1. Ade3+ Rde5 {-M6/245 0.17s} 2. Afc4+ Ke7 {-M4/245 0.005s} 3. Ac8+
+Kf6 {-M2/245 0.002s} 4. Ag4+ Ke6 {-M4/245 0.007s} 5. Ae8+ Rde7 {-M2/245 0.002s}
+6. Ac4+ Rd5 {-M2/245 0.003s} 7. Acc6+ Rd6 {-M2/245 0.002s} 8. Aed8+
+Kf6 {-M4/245 0.007s} 9. Adxd6+ Re6 {-M2/245 0.002s} 10. Axe6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/3r1r2/4k3/3r1r2/8/8/8/K2A1A2 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:58:11.757 JST"]
+[GameStartTime "2026-01-17T06:58:09.633 JST"]
+[PlyCount "19"]
+[SetUp "1"]
+[TimeControl "30+0.5"]
+[Variant "amazon"]
+
+1. Ade3+ Rde5 {-M6/245 0.17s} 2. Afc4+ Ke7 {-M4/245 0.005s} 3. Ac8+
+Kf6 {-M2/245 0.002s} 4. Ag4+ Ke6 {-M4/245 0.007s} 5. Ae8+ Rde7 {-M2/245 0.002s}
+6. Ac4+ Rd5 {-M2/245 0.002s} 7. Acc6+ Rd6 {-M2/245 0.002s} 8. Aed8+
+Kf6 {-M4/245 0.007s} 9. Adxd6+ Re6 {-M2/245 0.002s} 10. Axe6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/3r1r2/4k3/3r1r2/8/8/8/K2A1A2 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:58:14.029 JST"]
+[GameStartTime "2026-01-17T06:58:11.757 JST"]
+[PlyCount "19"]
+[SetUp "1"]
+[TimeControl "30+0.5"]
+[Variant "amazon"]
+
+1. Ade3+ Rde5 {-M6/245 0.21s} 2. Afc4+ Ke7 {-M4/245 0.006s} 3. Ac8+
+Kf6 {-M2/245 0.002s} 4. Ag4+ Ke6 {-M4/245 0.008s} 5. Ae8+ Rde7 {-M2/245 0.002s}
+6. Ac4+ Rd5 {-M2/245 0.002s} 7. Acc6+ Rd6 {-M2/245 0.002s} 8. Aed8+
+Kf6 {-M4/245 0.008s} 9. Adxd6+ Re6 {-M2/245 0.002s} 10. Axe6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/3r1r2/4k3/3r1r2/8/8/8/K2A1A2 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:58:16.331 JST"]
+[GameStartTime "2026-01-17T06:58:14.032 JST"]
+[PlyCount "19"]
+[SetUp "1"]
+[TimeControl "30+0.5"]
+[Variant "amazon"]
+
+1. Ade3+ Rde5 {-M6/245 0.18s} 2. Afc4+ Ke7 {-M4/245 0.005s} 3. Ac8+
+Kf6 {-M2/245 0.003s} 4. Ag4+ Ke6 {-M4/245 0.007s} 5. Ae8+ Rde7 {-M2/245 0.002s}
+6. Ac4+ Rd5 {-M2/245 0.002s} 7. Acc6+ Rd6 {-M2/245 0.002s} 8. Aed8+
+Kf6 {-M4/245 0.007s} 9. Adxd6+ Re6 {-M2/245 0.002s} 10. Axe6# {White mates} 1-0
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-SF"]
+[Result "1-0"]
+[FEN "8/3r1r2/4k3/3r1r2/8/8/8/K2A1A2 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:58:18.440 JST"]
+[GameStartTime "2026-01-17T06:58:16.332 JST"]
+[PlyCount "19"]
+[SetUp "1"]
+[TimeControl "30+0.5"]
+[Variant "amazon"]
+
+1. Ade3+ Rde5 {-M6/245 0.17s} 2. Afc4+ Ke7 {-M4/245 0.005s} 3. Ac8+
+Kf6 {-M2/245 0.002s} 4. Ag4+ Ke6 {-M4/245 0.007s} 5. Ae8+ Rde7 {-M2/245 0.002s}
+6. Ac4+ Rd5 {-M2/245 0.002s} 7. Acc6+ Rd6 {-M2/245 0.002s} 8. Aed8+
+Kf6 {-M4/245 0.007s} 9. Adxd6+ Re6 {-M2/245 0.002s} 10. Axe6# {White mates} 1-0
+

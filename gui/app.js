@@ -271,6 +271,7 @@ function parsePgn(pgnText) {
         const game = {
             headers: {},
             moves: [],
+            evals: [],  // Store evaluations
             fen: null,
             result: '*'
         };
@@ -289,11 +290,19 @@ function parsePgn(pgnText) {
         // Parse moves - everything after headers
         const moveSection = gameText.replace(/\[[^\]]*\]/g, '').trim();
         
-        // Extract individual moves (handles move numbers and results)
-        const moveRegex = /([KQRBNAP]?[a-h]?[1-8]?x?[a-h][1-8](?:=[QRBN])?[+#]?|O-O-O|O-O)/g;
+        // Extract moves with their evaluations
+        // Pattern: move {eval/depth time} or just move
+        const moveWithEvalRegex = /([KQRBNAP]?[a-h]?[1-8]?x?[a-h][1-8](?:=[QRBN])?[+#]?|O-O-O|O-O)\s*(?:\{([^}]*)\})?/g;
         let moveMatch;
-        while ((moveMatch = moveRegex.exec(moveSection)) !== null) {
-            game.moves.push(moveMatch[1]);
+        while ((moveMatch = moveWithEvalRegex.exec(moveSection)) !== null) {
+            const san = moveMatch[1];
+            const annotation = moveMatch[2] || '';
+            
+            game.moves.push(san);
+            
+            // Parse evaluation from annotation like "-M4/245 0.007s" or "+66.02/24 0.83s"
+            const evalInfo = parseEvaluation(annotation);
+            game.evals.push(evalInfo);
         }
         
         if (game.moves.length > 0 || game.fen) {
@@ -302,6 +311,36 @@ function parsePgn(pgnText) {
     }
     
     return games;
+}
+
+// Parse evaluation annotation like "-M4/245 0.007s" or "+66.02/24"
+function parseEvaluation(annotation) {
+    if (!annotation) return { score: null, depth: null, mate: null, time: null };
+    
+    const result = { score: null, depth: null, mate: null, time: null };
+    
+    // Check for mate score: -M4/245 or +M4/245
+    const mateMatch = annotation.match(/([+-]?)M(\d+)\/(\d+)/);
+    if (mateMatch) {
+        result.mate = parseInt(mateMatch[2]) * (mateMatch[1] === '-' ? -1 : 1);
+        result.depth = parseInt(mateMatch[3]);
+        return result;
+    }
+    
+    // Check for centipawn score: +66.02/24 or -1.50/30 or 0.00/31
+    const scoreMatch = annotation.match(/([+-]?\d+\.?\d*)\/(\d+)/);
+    if (scoreMatch) {
+        result.score = parseFloat(scoreMatch[1]);
+        result.depth = parseInt(scoreMatch[2]);
+    }
+    
+    // Parse time
+    const timeMatch = annotation.match(/(\d+\.?\d*)\s*s/);
+    if (timeMatch) {
+        result.time = parseFloat(timeMatch[1]);
+    }
+    
+    return result;
 }
 
 // ============================================================================
@@ -392,24 +431,27 @@ function loadGame(index) {
     state.sideToMove = parsed.sideToMove;
     
     // Build board history
-    state.boardHistory = [{ board: cloneBoard(state.board), sideToMove: state.sideToMove, lastMove: null }];
+    state.boardHistory = [{ board: cloneBoard(state.board), sideToMove: state.sideToMove, lastMove: null, eval: null }];
     state.moveHistory = [];
     
     let currentBoard = cloneBoard(state.board);
     let currentSide = state.sideToMove;
     
-    for (const san of game.moves) {
+    for (let i = 0; i < game.moves.length; i++) {
+        const san = game.moves[i];
+        const evalInfo = game.evals[i] || null;
         const isWhite = currentSide === 'w';
         const result = applyMove(currentBoard, san, isWhite);
         
         if (result) {
             currentBoard = result.board;
             currentSide = isWhite ? 'b' : 'w';
-            state.moveHistory.push({ san, from: result.from, to: result.to });
+            state.moveHistory.push({ san, from: result.from, to: result.to, eval: evalInfo });
             state.boardHistory.push({
                 board: cloneBoard(currentBoard),
                 sideToMove: currentSide,
-                lastMove: { from: result.from, to: result.to }
+                lastMove: { from: result.from, to: result.to },
+                eval: evalInfo
             });
         }
     }
@@ -442,6 +484,101 @@ function goToMove(index) {
     updateMoveCounter();
     highlightCurrentMove();
     updateNavigationButtons();
+    
+    // Find evaluation: first try current, then previous, then next
+    let evalInfo = historyEntry.eval;
+    if (!evalInfo || (evalInfo.score === null && evalInfo.mate === null)) {
+        // Look backward for most recent evaluation
+        for (let i = index - 1; i >= 0; i--) {
+            const prevEval = state.boardHistory[i].eval;
+            if (prevEval && (prevEval.score !== null || prevEval.mate !== null)) {
+                evalInfo = prevEval;
+                break;
+            }
+        }
+    }
+    // If still no eval, look forward for next available evaluation
+    if (!evalInfo || (evalInfo.score === null && evalInfo.mate === null)) {
+        for (let i = index + 1; i < state.boardHistory.length; i++) {
+            const nextEval = state.boardHistory[i].eval;
+            if (nextEval && (nextEval.score !== null || nextEval.mate !== null)) {
+                evalInfo = nextEval;
+                break;
+            }
+        }
+    }
+    updateEvaluation(evalInfo, index);
+    updateBestMove(index);
+}
+
+function updateEvaluation(evalInfo, moveIndex) {
+    const scoreEl = document.getElementById('eval-score');
+    const detailEl = document.getElementById('eval-detail');
+    const barEl = document.getElementById('eval-bar-white');
+    
+    if (!evalInfo || (evalInfo.score === null && evalInfo.mate === null)) {
+        scoreEl.textContent = '—';
+        scoreEl.className = 'eval-score';
+        detailEl.textContent = 'No eval';
+        barEl.style.height = '50%';
+        return;
+    }
+    
+    let displayScore;
+    let barHeight;
+    
+    if (evalInfo.mate !== null) {
+        // Mate score - Note: this is from Black's perspective (Fairy SF)
+        // Positive mate = Black is winning (bad for White)
+        // Negative mate = Black is losing (good for White)
+        const mateForWhite = -evalInfo.mate; // Flip perspective to White
+        const sign = mateForWhite > 0 ? '+' : '';
+        displayScore = `M${sign}${mateForWhite}`;
+        scoreEl.className = 'eval-score mate';
+        // Mate is essentially winning/losing completely
+        barHeight = mateForWhite > 0 ? 95 : 5;
+    } else {
+        // Centipawn score - also from Black's perspective
+        // Flip to White's perspective
+        const score = -evalInfo.score;
+        const sign = score > 0 ? '+' : '';
+        displayScore = `${sign}${score.toFixed(2)}`;
+        
+        // Set color class
+        if (score > 0.3) {
+            scoreEl.className = 'eval-score positive';
+        } else if (score < -0.3) {
+            scoreEl.className = 'eval-score negative';
+        } else {
+            scoreEl.className = 'eval-score';
+        }
+        
+        // Calculate bar height (sigmoid-ish mapping)
+        // Score of 0 = 50%, +5 ≈ 90%, -5 ≈ 10%
+        barHeight = 50 + (Math.tanh(score / 3) * 45);
+    }
+    
+    scoreEl.textContent = displayScore;
+    detailEl.textContent = evalInfo.depth ? `depth: ${evalInfo.depth}` : '';
+    barEl.style.height = `${barHeight}%`;
+}
+
+function updateBestMove(moveIndex) {
+    const bestMoveEl = document.getElementById('best-move');
+    
+    // Check if there's a next move in the history (Fairy Stockfish's response)
+    if (moveIndex < state.moveHistory.length) {
+        const nextMove = state.moveHistory[moveIndex];
+        // Determine who played the next move
+        const historyEntry = state.boardHistory[moveIndex];
+        const nextPlayer = historyEntry.sideToMove; // Who is to move at current position
+        
+        // Show the move that was actually played
+        const playerName = nextPlayer === 'white' ? 'Engine' : 'Fairy SF';
+        bestMoveEl.innerHTML = `<span class="label">${playerName} played:</span><span class="move">${nextMove.san}</span>`;
+    } else {
+        bestMoveEl.innerHTML = '';
+    }
 }
 
 function updateMoveCounter() {
@@ -647,7 +784,7 @@ function applyCustomFen(fen) {
         state.initialFen = fen;
         
         // Create a single-state game
-        state.boardHistory = [{ board: cloneBoard(state.board), sideToMove: state.sideToMove, lastMove: null }];
+        state.boardHistory = [{ board: cloneBoard(state.board), sideToMove: state.sideToMove, lastMove: null, eval: null }];
         state.moveHistory = [];
         state.currentMoveIndex = 0;
         
@@ -655,6 +792,8 @@ function applyCustomFen(fen) {
         updateMoveCounter();
         renderMoveList();
         updateNavigationButtons();
+        updateEvaluation(null, 0);
+        updateBestMove(0);
         
         document.getElementById('fen-editor').classList.add('hidden');
         document.getElementById('game-result').classList.add('hidden');
@@ -674,11 +813,13 @@ function init() {
     const parsed = parseFen(state.initialFen);
     state.board = parsed.board;
     state.sideToMove = parsed.sideToMove;
-    state.boardHistory = [{ board: cloneBoard(state.board), sideToMove: state.sideToMove, lastMove: null }];
+    state.boardHistory = [{ board: cloneBoard(state.board), sideToMove: state.sideToMove, lastMove: null, eval: null }];
     
     renderBoard(state.board);
     updateMoveCounter();
     updateNavigationButtons();
+    updateEvaluation(null, 0);
+    updateBestMove(0);
     
     setupEventListeners();
     

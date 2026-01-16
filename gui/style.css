@@ -188,6 +188,110 @@ header h1 {
     display: none !important;
 }
 
+/* === Evaluation Display === */
+.eval-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding: 12px;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+}
+
+.eval-bar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.eval-bar {
+    width: 24px;
+    height: 120px;
+    background: linear-gradient(to bottom, #333 0%, #333 100%);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid var(--text-secondary);
+}
+
+.eval-bar-white {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, #fff 0%, #ddd 100%);
+    transition: height 0.3s ease;
+}
+
+.eval-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 120px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.eval-info {
+    text-align: center;
+    min-width: 100px;
+}
+
+.eval-score {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: var(--text-primary);
+}
+
+.eval-score.positive {
+    color: #4caf50;
+}
+
+.eval-score.negative {
+    color: #f44336;
+}
+
+.eval-score.mate {
+    color: #ff9800;
+    font-size: 1.4rem;
+}
+
+.eval-detail {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.best-move {
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-top: 8px;
+    padding: 4px 8px;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 1.2em;
+}
+
+.best-move:empty {
+    display: none;
+}
+
+.best-move .label {
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.best-move .move {
+    font-weight: 600;
+    color: #22c55e;
+}
+
 /* === Chess Board === */
 .board-container {
     display: flex;
