@@ -1,0 +1,247 @@
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Old-Engine"]
+[Black "Fairy-SF"]
+[Result "0-1"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:11"]
+[GameEndTime "2026-01-17T06:39:51.697 JST"]
+[GameStartTime "2026-01-17T06:39:40.584 JST"]
+[PlyCount "50"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.50s} 2. Ad4+ Ke7 {0.00/33 0.11s} 3. Ac6+
+Kf7 {-0.04/33 0.25s} 4. Ad6+ Kg7 {0.00/36 0.14s} 5. Ae7+ R8f7 {0.00/31 0.14s}
+6. Ae8+ Kh7 {0.00/34 0.15s} 7. Ae4 Rf6 {0.00/34 0.15s} 8. Kd2
+Kh8 {0.00/31 0.16s} 9. Kc3 Rf3+ {0.00/33 0.29s} 10. Kb2 {0.79s}
+Rf2+ {0.00/31 0.16s} 11. Kc3 R6f3+ {+46.59/24 0.17s} 12. Kd4
+Rf4 {+42.36/23 1.6s} 13. Axf4 Rxf4+ {+44.08/21 0.17s} 14. Kd5 Rb4 {+M63/29 2.3s}
+15. Ke6 Rb5 {+M31/23 1.3s} 16. Kf7 Rb6 {+M25/31 0.092s} 17. Ke8
+Rb7 {+M19/29 0.13s} 18. Kf8 Kh7 {+M17/32 0.13s} 19. Ke8 Kg7 {+M15/33 0.13s}
+20. Kd8 Rf7 {+M13/35 0.14s} 21. Kc8 Kf6 {+M11/39 0.14s} 22. Kb8
+Ke6 {+M9/55 0.12s} 23. Ka8 Kd6 {+M7/150 0.13s} 24. Kb8 Kc6 {+M5/245 0.027s}
+25. Kc8 Rf8# {+M1/245 0.002s, Black mates} 0-1
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Old-Engine"]
+[Black "Fairy-SF"]
+[Result "0-1"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:07"]
+[GameEndTime "2026-01-17T06:39:59.275 JST"]
+[GameStartTime "2026-01-17T06:39:51.698 JST"]
+[PlyCount "48"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.50s} 2. Ad4+ Ke7 {0.00/33 0.11s} 3. Ac6+
+Kf7 {-0.04/33 0.26s} 4. Ad6+ Kg7 {0.00/36 0.14s} 5. Ae7+ R8f7 {0.00/31 0.14s}
+6. Ae8+ Kh7 {0.00/34 0.15s} 7. Ae4 Rf6 {0.00/34 0.15s} 8. Kd2
+Kh8 {0.00/31 0.15s} 9. Kc3 Rf3+ {0.00/34 0.15s} 10. Kb2 Rf2+ {0.00/33 0.20s}
+11. Kc3 R6f3+ {+42.44/23 1.0s} 12. Kd4 Rf4 {+42.87/23 0.46s} 13. Axf4
+Rxf4+ {+42.96/23 0.22s} 14. Kd5 Ra4 {+M75/22 0.16s} 15. Ke6 Ra5 {+M29/30 0.65s}
+16. Kf7 Ra6 {+M23/29 0.15s} 17. Ke8 Kg7 {+M19/30 0.16s} 18. Ke7
+Rf6 {+M17/31 0.21s} 19. Kd8 Rf7 {+M13/34 0.20s} 20. Kc8 Kf6 {+M11/41 0.17s}
+21. Kb8 Ke6 {+M9/68 0.17s} 22. Ka8 Kd6 {+M7/195 0.17s} 23. Kb8
+Kc6 {+M5/245 0.018s} 24. Kc8 Rf8# {+M1/245 0.002s, Black mates} 0-1
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Old-Engine"]
+[Black "Fairy-SF"]
+[Result "0-1"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:08"]
+[GameEndTime "2026-01-17T06:40:08.091 JST"]
+[GameStartTime "2026-01-17T06:39:59.277 JST"]
+[PlyCount "52"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.50s} 2. Ad4+ Ke7 {0.00/29 0.12s} 3. Ac6+
+Kf7 {0.00/26 0.21s} 4. Ad6+ Kg7 {0.00/36 0.13s} 5. Ae7+ Kh6 {0.00/31 0.14s}
+6. Ah4+ Kg7 {0.00/36 0.16s} 7. Ae7+ R8f7 {0.00/33 0.15s} 8. Ae8+
+Kh7 {0.00/34 0.18s} 9. Ae4 Rf6 {0.00/39 0.19s} 10. Kd2 Kh8 {0.00/33 0.16s}
+11. Kc3 Rf3+ {0.00/32 0.17s} 12. Kb2 Rf2+ {0.00/34 0.18s} 13. Kc3
+R6f3+ {+45.41/20 0.20s} 14. Kd4 Rf4 {+43.49/26 0.85s} 15. Axf4
+Rxf4+ {+43.92/21 0.30s} 16. Kd5 Rh4 {+M47/27 1.2s} 17. Ke6 Kg7 {+M47/21 0.63s}
+18. Ke5 Kg6 {+M63/20 0.29s} 19. Kd6 Kf6 {+M25/29 0.24s} 20. Kc7
+Ke7 {+M17/31 0.14s} 21. Kc6 Rh5 {+M13/33 0.16s} 22. Kc7 Rh6 {+M11/39 0.17s}
+23. Kb8 Kd7 {+M9/61 0.17s} 24. Ka8 Kc7 {+M5/245 0.033s} 25. Ka7
+Rg6 {+M3/245 0.002s} 26. Ka8 Ra6# {+M1/245 0.002s, Black mates} 0-1
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Old-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:05"]
+[GameEndTime "2026-01-17T06:40:13.097 JST"]
+[GameStartTime "2026-01-17T06:40:08.092 JST"]
+[PlyCount "30"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.50s} 2. Ad4+ Ke7 {0.00/33 0.11s} 3. Ac6+
+Kf7 {-0.04/33 0.25s} 4. Ad6+ Kg7 {0.00/36 0.15s} 5. Ae7+ R8f7 {0.00/30 0.13s}
+6. Ae8+ Kh7 {0.00/30 0.14s} 7. Ae4 Rf6 {0.00/35 0.14s} 8. Kd2
+Kh8 {0.00/28 0.16s} 9. Kc3 Rf3+ {0.00/34 0.16s} 10. Kb2 Rf1 {0.00/27 0.18s}
+11. Ae8+ Kh7 {0.00/33 0.20s} 12. Ah5+ Kg8 {0.00/35 0.18s} 13. Ae8+
+Kh7 {0.00/39 0.23s} 14. Ah5+ Kg8 {0.00/41 0.27s} 15. Ae8+
+Kh7 {0.00/165 0.17s, Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Old-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:03"]
+[GameEndTime "2026-01-17T06:40:16.901 JST"]
+[GameStartTime "2026-01-17T06:40:13.098 JST"]
+[PlyCount "24"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.49s} 2. Ad4+ Ke7 {0.00/33 0.11s} 3. Ac6+
+Kf7 {-0.04/33 0.26s} 4. Ad6+ Kg7 {0.00/36 0.14s} 5. Ae7+ R8f7 {0.00/29 0.13s}
+6. Ae8+ Kh7 {0.00/33 0.15s} 7. Ae4 Kh8 {0.00/33 0.16s} 8. Ah4+
+Kg7 {0.00/38 0.15s} 9. Ag4+ Kh7 {0.00/41 0.19s} 10. Ah4+ Kg7 {0.00/40 0.26s}
+11. Ag4+ Kh7 {0.00/45 0.32s} 12. Ah4+
+Kg7 {0.00/84 0.19s, Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Old-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:40:19.267 JST"]
+[GameStartTime "2026-01-17T06:40:16.901 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {-0.05/21 0.48s} 2. Ad4+ Ke7 {0.00/23 0.087s} 3. Ac6+
+Kf7 {0.00/25 0.12s} 4. Ad6+ Kg7 {0.00/37 0.13s} 5. Ae7+ Kh6 {0.00/36 0.16s}
+6. Ah4+ Kg7 {0.00/44 0.17s} 7. Ae7+ Kh6 {0.00/36 0.15s} 8. Ah4+
+Kg7 {0.00/43 0.27s} 9. Ae7+ {Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Old-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:40:22.048 JST"]
+[GameStartTime "2026-01-17T06:40:19.267 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {-0.05/21 0.45s} 2. Ad4+ Ke7 {0.00/23 0.082s} 3. Ac6+
+Kf7 {0.00/27 0.15s} 4. Ad6+ Kg7 {0.00/37 0.13s} 5. Ae7+ Kh6 {0.00/36 0.30s}
+6. Ah4+ Kg7 {0.00/43 0.14s} 7. Ae7+ Kh6 {0.00/38 0.16s} 8. Ah4+
+Kg7 {0.00/43 0.59s} 9. Ae7+ {Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Old-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:04"]
+[GameEndTime "2026-01-17T06:40:26.659 JST"]
+[GameStartTime "2026-01-17T06:40:22.049 JST"]
+[PlyCount "28"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.49s} 2. Ad4+ Ke7 {0.00/33 0.11s} 3. Ac6+
+Kf7 {-0.04/33 0.27s} 4. Ad6+ Kg7 {0.00/35 0.13s} 5. Ae7+ R8f7 {0.00/32 0.16s}
+6. Ae8+ Kh7 {0.00/38 0.23s} 7. Ae4 Kg7 {0.00/38 0.14s} 8. Ae6+
+Kh7 {0.00/37 0.21s} 9. Ae4 Kh8 {0.00/39 0.26s} 10. Ah4+ Kg7 {0.00/41 0.17s}
+11. Ag4+ Kh7 {0.00/42 0.20s} 12. Ah4+ Kg7 {0.00/43 0.26s} 13. Ag4+
+Kh7 {0.00/45 0.27s} 14. Ah4+ Kg7 {0.00/82 0.18s, Draw by 3-fold repetition}
+1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Old-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:04"]
+[GameEndTime "2026-01-17T06:40:31.541 JST"]
+[GameStartTime "2026-01-17T06:40:26.660 JST"]
+[PlyCount "25"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.50s} 2. Ad4+ Ke7 {0.00/33 0.12s} 3. Ac6+
+Kf7 {-0.04/33 0.25s} 4. Ad6+ Kg7 {0.00/36 0.15s} 5. Ae7+ R8f7 {0.00/31 0.14s}
+6. Ae8+ Kh7 {0.00/34 0.15s} 7. Ae4 Rf6 {0.00/32 0.15s} 8. Kd2
+Kh8 {0.00/34 0.19s} 9. Kc3 Kg7 {0.00/28 0.17s} 10. Ae7+ Kh8 {0.00/29 0.18s}
+11. Ae4 {0.58s} Kg8 {0.00/30 0.17s} 12. Ae7+ Kh8 {0.00/31 0.20s}
+13. Ae4 {Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Old-Engine"]
+[Black "Fairy-SF"]
+[Result "0-1"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:07"]
+[GameEndTime "2026-01-17T06:40:39.018 JST"]
+[GameStartTime "2026-01-17T06:40:31.542 JST"]
+[PlyCount "50"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.50s} 2. Ad4+ Ke7 {0.00/33 0.11s} 3. Ac6+
+Kf7 {-0.04/33 0.25s} 4. Ad6+ Kg7 {0.00/36 0.15s} 5. Ae7+ R8f7 {0.00/31 0.14s}
+6. Ae8+ Kh7 {0.00/34 0.15s} 7. Ae4 Rf6 {0.00/34 0.15s} 8. Kd2
+Kh8 {0.00/31 0.15s} 9. Kc3 Rf3+ {0.00/37 0.22s} 10. Kb2 Rf2+ {0.00/31 0.16s}
+11. Kc3 R6f3+ {+47.29/22 0.29s} 12. Kd4 Rf4 {+42.39/23 1.2s} 13. Axf4
+Rxf4+ {+45.06/22 0.18s} 14. Kd5 Ra4 {+M41/28 0.54s} 15. Ke6 Ra5 {+M31/27 0.11s}
+16. Kf7 Ra6 {+M21/30 0.18s} 17. Ke8 Ra7 {+M17/34 0.35s} 18. Kf8
+Rh7 {+M15/36 0.13s} 19. Ke8 Kg8 {+M13/41 0.22s} 20. Kd8 Kf8 {+M11/46 0.17s}
+21. Kc8 Ke8 {+M9/67 0.17s} 22. Kb8 Kd8 {+M7/218 0.18s} 23. Ka8
+Kc7 {+M5/245 0.011s} 24. Ka7 Rh6 {+M3/245 0.002s} 25. Ka8
+Ra6# {+M1/245 0.002s, Black mates} 0-1
+
