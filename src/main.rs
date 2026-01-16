@@ -38,6 +38,7 @@ fn print_help() {
     println!("Commands:");
     println!("  <move>  - Enter move in format: e2e4 (from-to)");
     println!("  auto    - Let the engine play for current side");
+    println!("  play    - Auto-play: engine vs engine until game ends");
     println!("  undo    - Undo last move");
     println!("  moves   - Show all legal moves");
     println!("  help    - Show this help");
@@ -113,6 +114,72 @@ fn main() {
                     println!("{}", board);
                 } else {
                     println!("No legal moves available!");
+                }
+            }
+            "play" | "p" => {
+                println!("=== Auto-play: Engine vs Engine ===");
+                println!();
+                let mut move_count = 0;
+                let max_moves = 200;
+
+                loop {
+                    let current_side = board.side_to_move();
+                    let current_side_name = match current_side {
+                        Color::White => "White",
+                        Color::Black => "Black",
+                    };
+
+                    // Check for game end
+                    if board.is_checkmate(current_side) {
+                        println!();
+                        println!("*** CHECKMATE! {} loses. ***", current_side_name);
+                        println!("Game finished in {} moves.", move_count);
+                        println!();
+                        println!("{}", board);
+                        break;
+                    }
+                    if board.is_stalemate(current_side) {
+                        println!();
+                        println!("*** STALEMATE! Draw. ***");
+                        println!("Game finished in {} moves.", move_count);
+                        println!();
+                        println!("{}", board);
+                        break;
+                    }
+
+                    // Safety limit
+                    if move_count >= max_moves {
+                        println!();
+                        println!("*** Draw by {} move limit. ***", max_moves);
+                        println!();
+                        println!("{}", board);
+                        break;
+                    }
+
+                    // Engine plays
+                    if let Some((best_move, score)) = find_best_move(&mut board, search_depth) {
+                        move_count += 1;
+                        let from_str = square_to_notation(best_move.from);
+                        let to_str = square_to_notation(best_move.to);
+
+                        // Make move first to check if it results in check
+                        let mv = board.make_move(best_move.from, best_move.to);
+                        move_history.push(mv);
+
+                        let check_marker = if board.is_in_check(board.side_to_move()) {
+                            "+"
+                        } else {
+                            ""
+                        };
+
+                        println!(
+                            "{}. {} {}{}{} (score: {})",
+                            move_count, current_side_name, from_str, to_str, check_marker, score
+                        );
+                    } else {
+                        println!("No legal moves for {}!", current_side_name);
+                        break;
+                    }
                 }
             }
             "undo" | "u" => {
