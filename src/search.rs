@@ -17,6 +17,13 @@ const KING_PROXIMITY_WEIGHT: i32 = 5;
 const AMAZON_CENTER_BONUS: i32 = 20;
 const PIECE_SAFETY_PENALTY: i32 = 50;
 
+// New evaluation weights
+const TROPISM_WEIGHT: i32 = 15;       // Amazon approaching enemy king
+const MOBILITY_WEIGHT: i32 = 3;        // Per legal move bonus
+const KING_CUTOFF_BONUS: i32 = 40;     // King cutting off escape routes
+const ROOK_TRAPPED_BONUS: i32 = 30;    // Bonus for trapping enemy rook
+const MATING_NET_WEIGHT: i32 = 25;     // Mating net evaluation
+
 /// Piece-Square Table for enemy King position
 /// Higher values = better for the attacker (King pushed to edge/corner)
 const ENEMY_KING_PST: [[i32; 8]; 8] = [
@@ -94,6 +101,21 @@ pub fn evaluate(board: &mut Board) -> i32 {
         score += evaluate_king_proximity(our_king_sq, enemy_king_sq);
     }
 
+    // 8. Amazon Tropism - Amazon closer to enemy king
+    score += evaluate_amazon_tropism(board, for_color);
+
+    // 9. Mobility - more legal moves is better
+    score += evaluate_mobility(board, for_color);
+
+    // 10. King Cut-off - cutting enemy king's escape routes
+    score += evaluate_king_cutoff(board, for_color);
+
+    // 11. Rook Activity - penalize active enemy rook
+    score += evaluate_rook_activity(board, for_color);
+
+    // 12. Mating Distance - how close to checkmate position
+    score += evaluate_mating_distance(board, for_color);
+
     score
 }
 
@@ -120,6 +142,12 @@ fn evaluate_material(board: &Board, for_color: Color) -> i32 {
     }
 
     our_material - enemy_material
+}
+
+/// Quick material evaluation for repetition detection
+/// Returns material from side to move's perspective
+fn evaluate_material_only(board: &Board) -> i32 {
+    evaluate_material(board, board.side_to_move())
 }
 
 /// Evaluate piece safety - penalize pieces that are attacked
@@ -182,6 +210,194 @@ fn evaluate_king_proximity(our_king: Square, enemy_king: Square) -> i32 {
     let col_diff = (our_king.1 as i32 - enemy_king.1 as i32).abs();
     let distance = row_diff.max(col_diff);
     (7 - distance) * KING_PROXIMITY_WEIGHT
+}
+
+/// Find Amazon position for a given color
+fn find_amazon(board: &Board, color: Color) -> Option<Square> {
+    for row in 0..8u8 {
+        for col in 0..8u8 {
+            if let Some(piece) = board.get_piece((row, col)) {
+                if piece.piece_type == PieceType::Amazon && piece.color == color {
+                    return Some((row, col));
+                }
+            }
+        }
+    }
+    None
+}
+
+/// Find Rook position for a given color
+fn find_rook(board: &Board, color: Color) -> Option<Square> {
+    for row in 0..8u8 {
+        for col in 0..8u8 {
+            if let Some(piece) = board.get_piece((row, col)) {
+                if piece.piece_type == PieceType::Rook && piece.color == color {
+                    return Some((row, col));
+                }
+            }
+        }
+    }
+    None
+}
+
+/// Evaluate Amazon Tropism - Amazon closer to enemy king is better
+fn evaluate_amazon_tropism(board: &Board, for_color: Color) -> i32 {
+    let enemy_color = for_color.opposite();
+
+    let amazon_sq = find_amazon(board, for_color);
+    let enemy_king_sq = board.find_king(enemy_color);
+
+    if let (Some(amazon), Some(king)) = (amazon_sq, enemy_king_sq) {
+        // Chebyshev distance (max of row/col difference)
+        let row_diff = (amazon.0 as i32 - king.0 as i32).abs();
+        let col_diff = (amazon.1 as i32 - king.1 as i32).abs();
+        let distance = row_diff.max(col_diff);
+
+        // Closer = higher score (max distance is 7, so 7 - distance gives 0-7)
+        return (7 - distance) * TROPISM_WEIGHT;
+    }
+
+    0
+}
+
+/// Evaluate Mobility - more legal moves is better
+fn evaluate_mobility(board: &mut Board, for_color: Color) -> i32 {
+    let current_side = board.side_to_move();
+
+    // If it's our turn, count our moves
+    if current_side == for_color {
+        let our_moves = board.generate_legal_moves().len() as i32;
+        return our_moves * MOBILITY_WEIGHT;
+    }
+
+    // Otherwise, we need to temporarily switch sides to count
+    // But this is expensive, so we'll just use 0 for now
+    0
+}
+
+/// Evaluate King Cut-off - our king cutting off enemy king's escape routes
+fn evaluate_king_cutoff(board: &Board, for_color: Color) -> i32 {
+    let enemy_color = for_color.opposite();
+
+    let our_king_sq = board.find_king(for_color);
+    let enemy_king_sq = board.find_king(enemy_color);
+
+    if let (Some(our_king), Some(enemy_king)) = (our_king_sq, enemy_king_sq) {
+        let mut bonus = 0;
+
+        // Check if our king cuts off the enemy king on the same file
+        if our_king.1 == enemy_king.1 {
+            // Same file - check if we're between enemy king and center/other side
+            let our_dist_to_edge = our_king.0.min(7 - our_king.0);
+            let enemy_dist_to_edge = enemy_king.0.min(7 - enemy_king.0);
+            if our_dist_to_edge > enemy_dist_to_edge {
+                bonus += KING_CUTOFF_BONUS;
+            }
+        }
+
+        // Check if our king cuts off the enemy king on the same rank
+        if our_king.0 == enemy_king.0 {
+            // Same rank - check if we're between enemy king and center/other side
+            let our_dist_to_edge = our_king.1.min(7 - our_king.1);
+            let enemy_dist_to_edge = enemy_king.1.min(7 - enemy_king.1);
+            if our_dist_to_edge > enemy_dist_to_edge {
+                bonus += KING_CUTOFF_BONUS;
+            }
+        }
+
+        // Bonus if kings are close (opposition can be useful)
+        let row_diff = (our_king.0 as i32 - enemy_king.0 as i32).abs();
+        let col_diff = (our_king.1 as i32 - enemy_king.1 as i32).abs();
+        if row_diff <= 2 && col_diff <= 2 {
+            bonus += KING_CUTOFF_BONUS / 2;
+        }
+
+        return bonus;
+    }
+
+    0
+}
+
+/// Evaluate Rook Activity - penalize enemy rook that has many moves
+fn evaluate_rook_activity(board: &Board, for_color: Color) -> i32 {
+    let enemy_color = for_color.opposite();
+
+    let enemy_rook_sq = find_rook(board, enemy_color);
+
+    if let Some(rook) = enemy_rook_sq {
+        // Count how many squares the rook can move to (simplified)
+        let mut rook_mobility = 0;
+
+        // Check horizontal moves
+        for col in 0..8u8 {
+            if col != rook.1 {
+                let sq = (rook.0, col);
+                if board.get_piece(sq).is_none() {
+                    rook_mobility += 1;
+                } else {
+                    break; // Blocked
+                }
+            }
+        }
+
+        // Check vertical moves
+        for row in 0..8u8 {
+            if row != rook.0 {
+                let sq = (row, rook.1);
+                if board.get_piece(sq).is_none() {
+                    rook_mobility += 1;
+                } else {
+                    break; // Blocked
+                }
+            }
+        }
+
+        // Less mobility for enemy rook = better for us
+        // Max rook mobility is 14 (7 + 7)
+        return (14 - rook_mobility) * (ROOK_TRAPPED_BONUS / 7);
+    }
+
+    0
+}
+
+/// Evaluate Mating Distance - how close are we to a mating position
+fn evaluate_mating_distance(board: &Board, for_color: Color) -> i32 {
+    let enemy_color = for_color.opposite();
+
+    let our_king_sq = board.find_king(for_color);
+    let enemy_king_sq = board.find_king(enemy_color);
+    let amazon_sq = find_amazon(board, for_color);
+
+    if let (Some(our_king), Some(enemy_king), Some(amazon)) =
+        (our_king_sq, enemy_king_sq, amazon_sq)
+    {
+        // Distance of enemy king to nearest corner
+        let corner_dist = [
+            enemy_king.0.max(enemy_king.1),                    // Distance to (0,0)
+            enemy_king.0.max(7 - enemy_king.1),                // Distance to (0,7)
+            (7 - enemy_king.0).max(enemy_king.1),              // Distance to (7,0)
+            (7 - enemy_king.0).max(7 - enemy_king.1),          // Distance to (7,7)
+        ]
+        .into_iter()
+        .min()
+        .unwrap_or(7) as i32;
+
+        // Distance from our pieces to enemy king
+        let amazon_dist = (amazon.0 as i32 - enemy_king.0 as i32)
+            .abs()
+            .max((amazon.1 as i32 - enemy_king.1 as i32).abs());
+        let our_king_dist = (our_king.0 as i32 - enemy_king.0 as i32)
+            .abs()
+            .max((our_king.1 as i32 - enemy_king.1 as i32).abs());
+
+        // Score: enemy king close to corner + our pieces close to enemy king
+        let corner_score = (7 - corner_dist) * 2;
+        let approach_score = 14 - amazon_dist - our_king_dist;
+
+        return (corner_score + approach_score) * MATING_NET_WEIGHT / 10;
+    }
+
+    0
 }
 
 // =============================================================================
@@ -297,6 +513,13 @@ fn quiescence(board: &mut Board, mut alpha: i32, beta: i32) -> i32 {
 /// Negamax search with Alpha-Beta pruning
 /// Returns the score of the position from the side to move's perspective
 pub fn negamax(board: &mut Board, depth: i32, mut alpha: i32, beta: i32) -> i32 {
+    // Check for repetition - if position repeated twice, it's essentially a draw
+    // Return 0 (draw score) - this is fair: if we're winning we'll find another way,
+    // if we're losing, a draw is actually good
+    if board.repetition_count() >= 2 {
+        return 0; // Threefold repetition = draw
+    }
+
     // Base case: reached maximum depth - use quiescence search
     if depth == 0 {
         return quiescence(board, alpha, beta);

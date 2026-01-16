@@ -1,0 +1,200 @@
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "New-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:39:13.152 JST"]
+[GameStartTime "2026-01-17T06:39:11.290 JST"]
+[PlyCount "12"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.50s} 2. Ad4+ Ke7 {0.00/33 0.11s} 3. Ae4+
+Kd7 {0.00/33 0.12s} 4. Ad4+ Ke7 {0.00/31 0.13s} 5. Ae4+ Kd7 {0.00/33 0.15s}
+6. Ad4+ Ke7 {0.00/67 0.16s, Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "New-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:39:15.403 JST"]
+[GameStartTime "2026-01-17T06:39:13.152 JST"]
+[PlyCount "12"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {-0.22/16 0.64s} 2. Ad4+ Ke7 {-0.05/18 0.084s} 3. Ae4+
+Kd7 {0.00/24 0.13s} 4. Ad4+ Ke7 {0.00/25 0.15s} 5. Ae4+ Kd7 {0.00/27 0.17s}
+6. Ad4+ Ke7 {0.00/63 0.15s, Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "New-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:39:17.650 JST"]
+[GameStartTime "2026-01-17T06:39:15.409 JST"]
+[PlyCount "12"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.51s} 2. Ad4+ Ke7 {0.00/33 0.11s} 3. Ae4+
+Kd7 {0.00/34 0.14s} 4. Ad4+ Ke7 {0.00/33 0.33s} 5. Ae4+ Kd7 {0.00/34 0.13s}
+6. Ad4+ Ke7 {0.00/64 0.14s, Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "New-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:39:19.561 JST"]
+[GameStartTime "2026-01-17T06:39:17.651 JST"]
+[PlyCount "12"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.51s} 2. Ad4+ Ke7 {0.00/33 0.11s} 3. Ae4+
+Kd7 {0.00/34 0.13s} 4. Ad4+ Ke7 {0.00/32 0.13s} 5. Ae4+ Kd7 {0.00/36 0.23s}
+6. Ad4+ Ke7 {0.00/69 0.15s, Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "New-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:39:21.462 JST"]
+[GameStartTime "2026-01-17T06:39:19.562 JST"]
+[PlyCount "12"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.50s} 2. Ad4+ Ke7 {0.00/33 0.11s} 3. Ae4+
+Kd7 {0.00/34 0.13s} 4. Ad4+ Ke7 {0.00/32 0.13s} 5. Ae4+ Kd7 {0.00/35 0.26s}
+6. Ad4+ Ke7 {0.00/66 0.14s, Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "New-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:39:23.615 JST"]
+[GameStartTime "2026-01-17T06:39:21.463 JST"]
+[PlyCount "12"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.52s} 2. Ad4+ Ke7 {0.00/32 0.11s} 3. Ae4+
+Kd7 {0.00/34 0.13s} 4. Ad4+ Ke7 {0.00/34 0.34s} 5. Ae4+ Kd7 {0.00/35 0.24s}
+6. Ad4+ Ke7 {0.00/65 0.17s, Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "New-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:39:25.621 JST"]
+[GameStartTime "2026-01-17T06:39:23.616 JST"]
+[PlyCount "12"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.50s} 2. Ad4+ Ke7 {0.00/33 0.12s} 3. Ae4+
+Kd7 {0.00/34 0.13s} 4. Ad4+ Ke7 {0.00/33 0.31s} 5. Ae4+ Kd7 {0.00/35 0.18s}
+6. Ad4+ Ke7 {0.00/63 0.15s, Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "New-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:39:27.515 JST"]
+[GameStartTime "2026-01-17T06:39:25.622 JST"]
+[PlyCount "12"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.49s} 2. Ad4+ Ke7 {0.00/33 0.11s} 3. Ae4+
+Kd7 {0.00/34 0.13s} 4. Ad4+ Ke7 {0.00/32 0.14s} 5. Ae4+ Kd7 {0.00/35 0.26s}
+6. Ad4+ Ke7 {0.00/66 0.14s, Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "New-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:01"]
+[GameEndTime "2026-01-17T06:39:29.416 JST"]
+[GameStartTime "2026-01-17T06:39:27.515 JST"]
+[PlyCount "12"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {0.00/22 0.51s} 2. Ad4+ Ke7 {0.00/33 0.12s} 3. Ae4+
+Kd7 {0.00/34 0.13s} 4. Ad4+ Ke7 {0.00/32 0.13s} 5. Ae4+ Kd7 {0.00/35 0.25s}
+6. Ad4+ Ke7 {0.00/68 0.14s, Draw by 3-fold repetition} 1/2-1/2
+
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "New-Engine"]
+[Black "Fairy-SF"]
+[Result "1/2-1/2"]
+[FEN "5r2/8/4k3/3r4/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:02"]
+[GameEndTime "2026-01-17T06:39:31.793 JST"]
+[GameStartTime "2026-01-17T06:39:29.417 JST"]
+[PlyCount "12"]
+[SetUp "1"]
+[TimeControl "10+0.1"]
+[Variant "amazon"]
+
+1. Ag4+ Rdf5 {-0.06/20 0.47s} 2. Ad4+ Ke7 {0.00/21 0.083s} 3. Ae4+
+Kd7 {0.00/24 0.13s} 4. Ad4+ Ke7 {0.00/27 0.13s} 5. Ae4+ Kd7 {0.00/31 0.17s}
+6. Ad4+ Ke7 {0.00/61 0.14s, Draw by 3-fold repetition} 1/2-1/2
+

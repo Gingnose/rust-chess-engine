@@ -90,6 +90,8 @@ pub struct Board {
     squares: [[Option<Piece>; 8]; 8],
     /// Which side is to move
     side_to_move: Color,
+    /// History of position hashes for repetition detection
+    position_history: Vec<u64>,
 }
 
 impl Board {
@@ -98,7 +100,61 @@ impl Board {
         Board {
             squares: [[None; 8]; 8],
             side_to_move: Color::White,
+            position_history: Vec::new(),
         }
+    }
+
+    /// Compute a hash of the current position for repetition detection
+    /// Uses a simple hash combining piece positions and side to move
+    pub fn position_hash(&self) -> u64 {
+        let mut hash: u64 = 0;
+
+        // Hash each piece on the board
+        for row in 0..8u8 {
+            for col in 0..8u8 {
+                if let Some(piece) = self.get_piece((row, col)) {
+                    // Create a unique value for each piece type, color, and position
+                    let piece_value: u64 = match piece.piece_type {
+                        PieceType::King => 1,
+                        PieceType::Amazon => 2,
+                        PieceType::Rook => 3,
+                    };
+                    let color_value: u64 = match piece.color {
+                        Color::White => 0,
+                        Color::Black => 64,
+                    };
+                    let square_value = (row as u64) * 8 + (col as u64);
+
+                    // Combine into hash using prime multiplier
+                    hash ^= (piece_value + color_value) * 31 + square_value * 127;
+                    hash = hash.wrapping_mul(0x517cc1b727220a95);
+                }
+            }
+        }
+
+        // Include side to move in hash
+        if self.side_to_move == Color::Black {
+            hash ^= 0xF0F0F0F0F0F0F0F0;
+        }
+
+        hash
+    }
+
+    /// Check if the current position has occurred before (repetition)
+    pub fn is_repetition(&self) -> bool {
+        let current_hash = self.position_hash();
+        self.position_history.iter().filter(|&&h| h == current_hash).count() >= 1
+    }
+
+    /// Count how many times the current position has occurred
+    pub fn repetition_count(&self) -> usize {
+        let current_hash = self.position_hash();
+        self.position_history.iter().filter(|&&h| h == current_hash).count()
+    }
+
+    /// Clear position history (e.g., when starting a new game)
+    pub fn clear_history(&mut self) {
+        self.position_history.clear();
     }
 
     /// Get the piece at a given square
@@ -276,6 +332,10 @@ impl Board {
 
     /// Execute a move, returns the Move with captured piece info for unmake
     pub fn make_move(&mut self, from: Square, to: Square) -> Move {
+        // Save current position hash to history before making move
+        let hash = self.position_hash();
+        self.position_history.push(hash);
+
         let captured = self.get_piece(to);
         let piece = self.get_piece(from);
 
@@ -288,6 +348,9 @@ impl Board {
 
     /// Undo a move, restoring the previous state
     pub fn unmake_move(&mut self, mv: Move) {
+        // Remove the position hash that was added when this move was made
+        self.position_history.pop();
+
         let piece = self.get_piece(mv.to);
 
         self.set_piece(mv.from, piece);
