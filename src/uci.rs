@@ -44,7 +44,7 @@ fn move_to_uci(from: Square, to: Square) -> String {
 /// Main UCI loop - reads commands from stdin and responds
 pub fn uci_loop() {
     let stdin = io::stdin();
-    let mut board = Board::setup_k_vs_qnc();
+    let mut board = Board::setup_amazon_vs_rook();
     let mut default_depth = 4;
 
     for line in stdin.lock().lines() {
@@ -65,7 +65,7 @@ pub fn uci_loop() {
 
         match parts[0] {
             "uci" => {
-                println!("id name K-vs-QNC Chess Engine");
+                println!("id name Amazon-vs-Rook Chess Engine");
                 println!("id author Gingnose");
                 println!("option name Depth type spin default 4 min 1 max 10");
                 println!("uciok");
@@ -78,7 +78,7 @@ pub fn uci_loop() {
             }
 
             "ucinewgame" => {
-                board = Board::setup_k_vs_qnc();
+                board = Board::setup_amazon_vs_rook();
             }
 
             "position" => {
@@ -132,12 +132,12 @@ fn parse_position(board: &mut Board, args: &[&str]) {
     // Parse position type
     match args[0] {
         "startpos" => {
-            *board = Board::setup_k_vs_qnc();
+            *board = Board::setup_amazon_vs_rook();
         }
         "fen" => {
             // For now, just use startpos (FEN parsing not implemented)
             // In a full implementation, we would parse the FEN string
-            *board = Board::setup_k_vs_qnc();
+            *board = Board::setup_amazon_vs_rook();
         }
         _ => {
             return;

@@ -58,14 +58,14 @@ fn main() {
 
     // Interactive CLI mode
     println!("╔═══════════════════════════════════════╗");
-    println!("║     K vs QNC Chess Engine             ║");
-    println!("║     Checkmate the lone King!          ║");
+    println!("║   Amazon + K vs R + K Chess Engine    ║");
+    println!("║   Checkmate the defended King!        ║");
     println!("╚═══════════════════════════════════════╝");
     println!();
     println!("Run with --uci for UCI protocol mode.");
     println!();
 
-    let mut board = Board::setup_k_vs_qnc();
+    let mut board = Board::setup_amazon_vs_rook();
     let mut move_history: Vec<rust_chess_engine::board::Move> = Vec::new();
     let search_depth = 4;
 

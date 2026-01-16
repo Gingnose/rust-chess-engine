@@ -1,14 +1,14 @@
-/// QNC (Queen + Knight + Camel) move generation
-/// Also known as "Actress" - a powerful fairy chess piece
+/// Amazon (Queen + Knight) move generation
+/// A powerful fairy chess piece combining Queen and Knight movements
 use crate::board::{Board, Color, Square};
 
-pub struct QncMoves;
+pub struct AmazonMoves;
 
-impl QncMoves {
-    /// Generate all pseudo-legal moves for a QNC piece
-    /// QNC combines: Queen (sliding) + Knight (2,1 jump) + Camel (3,1 jump)
+impl AmazonMoves {
+    /// Generate all pseudo-legal moves for an Amazon piece
+    /// Amazon combines: Queen (sliding) + Knight (2,1 jump)
     pub fn generate_moves(board: &Board, from: Square) -> Vec<Square> {
-        let mut moves = Vec::with_capacity(64); // QNC can have many moves
+        let mut moves = Vec::with_capacity(48); // Amazon can have many moves
 
         // Get the color of the piece that's moving
         let piece = board.get_piece(from);
@@ -22,9 +22,6 @@ impl QncMoves {
 
         // 2. Knight moves (8 jump patterns)
         Self::generate_knight_moves(&mut moves, board, from, our_color);
-
-        // 3. Camel moves (8 jump patterns)
-        Self::generate_camel_moves(&mut moves, board, from, our_color);
 
         moves
     }
@@ -88,35 +85,7 @@ impl QncMoves {
             ( 1, -2), ( 1, 2), ( 2, -1), ( 2, 1),
         ];
 
-        Self::add_jump_moves(moves, board, from, our_color, &knight_offsets);
-    }
-
-    /// Generate Camel-like jump moves (L-shape: 3+1)
-    fn generate_camel_moves(
-        moves: &mut Vec<Square>,
-        board: &Board,
-        from: Square,
-        our_color: Color,
-    ) {
-        // Camel offsets: (±3, ±1) and (±1, ±3)
-        let camel_offsets: [(i8, i8); 8] = [
-            (-3, -1), (-3, 1), (-1, -3), (-1, 3),
-            ( 1, -3), ( 1, 3), ( 3, -1), ( 3, 1),
-        ];
-
-        Self::add_jump_moves(moves, board, from, our_color, &camel_offsets);
-    }
-
-    /// Helper: Add jump moves for leaper pieces (Knight, Camel, etc.)
-    /// Jump moves can leap over other pieces
-    fn add_jump_moves(
-        moves: &mut Vec<Square>,
-        board: &Board,
-        from: Square,
-        our_color: Color,
-        offsets: &[(i8, i8)],
-    ) {
-        for (dr, dc) in offsets {
+        for (dr, dc) in knight_offsets {
             let new_row = from.0 as i8 + dr;
             let new_col = from.1 as i8 + dc;
 
@@ -144,20 +113,17 @@ mod tests {
     use crate::board::{Piece, PieceType};
 
     #[test]
-    fn test_qnc_on_empty_board_center() {
+    fn test_amazon_on_empty_board_center() {
         let mut board = Board::new();
-        // Place QNC on d4 (row 4, col 3) - center of board
-        board.set_piece((4, 3), Some(Piece::new(PieceType::QNC, Color::White)));
+        // Place Amazon on d4 (row 4, col 3) - center of board
+        board.set_piece((4, 3), Some(Piece::new(PieceType::Amazon, Color::White)));
 
-        let moves = QncMoves::generate_moves(&board, (4, 3));
+        let moves = AmazonMoves::generate_moves(&board, (4, 3));
 
-        // QNC should have many moves from the center
-        // Queen: can reach many squares
-        // Knight: 8 squares
-        // Camel: up to 8 squares (some may be off board)
-        assert!(!moves.is_empty(), "QNC should have moves");
+        // Amazon should have many moves from the center
+        assert!(!moves.is_empty(), "Amazon should have moves");
         
-        // From d4, Knight can reach: c2, e2, b3, f3, b5, f5, c6, e6
+        // Knight moves from d4: c2, e2, b3, f3, b5, f5, c6, e6
         assert!(moves.contains(&(6, 2)), "Knight move to c2 should be possible");
         assert!(moves.contains(&(6, 4)), "Knight move to e2 should be possible");
         
@@ -167,14 +133,14 @@ mod tests {
     }
 
     #[test]
-    fn test_qnc_blocked_by_own_piece() {
+    fn test_amazon_blocked_by_own_piece() {
         let mut board = Board::new();
-        // Place QNC on d4
-        board.set_piece((4, 3), Some(Piece::new(PieceType::QNC, Color::White)));
+        // Place Amazon on d4
+        board.set_piece((4, 3), Some(Piece::new(PieceType::Amazon, Color::White)));
         // Place own piece on d5 (blocking sliding north)
         board.set_piece((3, 3), Some(Piece::new(PieceType::King, Color::White)));
 
-        let moves = QncMoves::generate_moves(&board, (4, 3));
+        let moves = AmazonMoves::generate_moves(&board, (4, 3));
 
         // Should NOT be able to move to d5 (blocked by own piece)
         assert!(!moves.contains(&(3, 3)), "Should not capture own piece");
@@ -183,14 +149,14 @@ mod tests {
     }
 
     #[test]
-    fn test_qnc_can_capture_enemy() {
+    fn test_amazon_can_capture_enemy() {
         let mut board = Board::new();
-        // Place QNC on d4
-        board.set_piece((4, 3), Some(Piece::new(PieceType::QNC, Color::White)));
+        // Place Amazon on d4
+        board.set_piece((4, 3), Some(Piece::new(PieceType::Amazon, Color::White)));
         // Place enemy piece on d5
         board.set_piece((3, 3), Some(Piece::new(PieceType::King, Color::Black)));
 
-        let moves = QncMoves::generate_moves(&board, (4, 3));
+        let moves = AmazonMoves::generate_moves(&board, (4, 3));
 
         // CAN capture enemy on d5
         assert!(moves.contains(&(3, 3)), "Should be able to capture enemy piece");
@@ -199,37 +165,9 @@ mod tests {
     }
 
     #[test]
-    fn test_qnc_camel_moves() {
-        let mut board = Board::new();
-        // Place QNC on d4 (row 4, col 3)
-        board.set_piece((4, 3), Some(Piece::new(PieceType::QNC, Color::White)));
-
-        let moves = QncMoves::generate_moves(&board, (4, 3));
-
-        // Camel moves from d4: (±3, ±1) and (±1, ±3)
-        // d4 = (4, 3)
-        // (4-3, 3-1) = (1, 2) = c7 ✓
-        // (4-3, 3+1) = (1, 4) = e7 ✓
-        // (4+3, 3-1) = (7, 2) = c1 ✓
-        // (4+3, 3+1) = (7, 4) = e1 ✓
-        // (4-1, 3-3) = (3, 0) = a5 ✓
-        // (4-1, 3+3) = (3, 6) = g5 ✓
-        // (4+1, 3-3) = (5, 0) = a3 ✓
-        // (4+1, 3+3) = (5, 6) = g3 ✓
-        assert!(moves.contains(&(1, 2)), "Camel move to c7");
-        assert!(moves.contains(&(1, 4)), "Camel move to e7");
-        assert!(moves.contains(&(7, 2)), "Camel move to c1");
-        assert!(moves.contains(&(7, 4)), "Camel move to e1");
-        assert!(moves.contains(&(3, 0)), "Camel move to a5");
-        assert!(moves.contains(&(3, 6)), "Camel move to g5");
-        assert!(moves.contains(&(5, 0)), "Camel move to a3");
-        assert!(moves.contains(&(5, 6)), "Camel move to g3");
-    }
-
-    #[test]
-    fn test_qnc_no_piece_returns_empty() {
+    fn test_amazon_no_piece_returns_empty() {
         let board = Board::new(); // Empty board
-        let moves = QncMoves::generate_moves(&board, (4, 3));
+        let moves = AmazonMoves::generate_moves(&board, (4, 3));
         assert!(moves.is_empty(), "No piece at square should return empty moves");
     }
 }

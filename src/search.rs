@@ -169,12 +169,10 @@ mod tests {
         // Position where White can checkmate in 1
         // Black king at a8 (row 0, col 0) - corner
         // White king at c7 (row 1, col 2) - cuts off b8, b7
-        // White QNC at d4 (row 4, col 3) - can move to b6 for checkmate
-        //   d4 to b6: (2-4, 1-3) = (-2, -2) -> diagonal queen move!
-        //   After Qb6: Black king trapped, a7 attacked by queen, b8/b7 by king
+        // White Amazon at d4 (row 4, col 3) - can move to b6 for checkmate
         board.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
         board.set_piece((1, 2), Some(Piece::new(PieceType::King, Color::White)));
-        board.set_piece((4, 3), Some(Piece::new(PieceType::QNC, Color::White)));
+        board.set_piece((4, 3), Some(Piece::new(PieceType::Amazon, Color::White)));
         board.set_side_to_move(Color::White);
 
         // Verify this is NOT already checkmate
@@ -205,10 +203,10 @@ mod tests {
         // If White plays wrong, it's stalemate
         // Black king at h8 (row 0, col 7)
         // White king at h6 (row 2, col 7)
-        // White QNC at f5 (row 3, col 5) - should NOT block all escape squares
+        // White Amazon at f5 (row 3, col 5) - should NOT block all escape squares
         board.set_piece((0, 7), Some(Piece::new(PieceType::King, Color::Black)));
         board.set_piece((2, 7), Some(Piece::new(PieceType::King, Color::White)));
-        board.set_piece((3, 5), Some(Piece::new(PieceType::QNC, Color::White)));
+        board.set_piece((3, 5), Some(Piece::new(PieceType::Amazon, Color::White)));
         board.set_side_to_move(Color::White);
 
         let result = find_best_move(&mut board, 3);
@@ -230,7 +228,7 @@ mod tests {
 
     #[test]
     fn test_search_returns_move() {
-        let mut board = Board::setup_k_vs_qnc();
+        let mut board = Board::setup_amazon_vs_rook();
 
         let result = find_best_move(&mut board, 3);
         assert!(result.is_some(), "Should find a move in starting position");
@@ -249,7 +247,7 @@ mod tests {
         // Checkmate position - no legal moves for Black
         board.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
         board.set_piece((2, 0), Some(Piece::new(PieceType::King, Color::White)));
-        board.set_piece((2, 1), Some(Piece::new(PieceType::QNC, Color::White)));
+        board.set_piece((2, 1), Some(Piece::new(PieceType::Amazon, Color::White)));
         board.set_side_to_move(Color::Black);
 
         let result = find_best_move(&mut board, 3);
@@ -264,13 +262,13 @@ mod tests {
         // Black king in corner
         board_corner.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
         board_corner.set_piece((7, 4), Some(Piece::new(PieceType::King, Color::White)));
-        board_corner.set_piece((7, 3), Some(Piece::new(PieceType::QNC, Color::White)));
+        board_corner.set_piece((7, 3), Some(Piece::new(PieceType::Amazon, Color::White)));
         board_corner.set_side_to_move(Color::White);
 
         // Black king in center
         board_center.set_piece((4, 4), Some(Piece::new(PieceType::King, Color::Black)));
         board_center.set_piece((7, 4), Some(Piece::new(PieceType::King, Color::White)));
-        board_center.set_piece((7, 3), Some(Piece::new(PieceType::QNC, Color::White)));
+        board_center.set_piece((7, 3), Some(Piece::new(PieceType::Amazon, Color::White)));
         board_center.set_side_to_move(Color::White);
 
         let score_corner = evaluate(&mut board_corner);
