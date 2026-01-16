@@ -52,6 +52,24 @@ impl Piece {
     }
 }
 
+/// Represents a chess move
+#[derive(Copy, Clone, Debug)]
+pub struct Move {
+    pub from: Square,
+    pub to: Square,
+    pub captured: Option<Piece>, // For unmake_move restoration
+}
+
+impl Move {
+    pub fn new(from: Square, to: Square) -> Self {
+        Move {
+            from,
+            to,
+            captured: None,
+        }
+    }
+}
+
 // =============================================================================
 // Board Structure
 // =============================================================================
@@ -122,6 +140,27 @@ impl Board {
 
         board.side_to_move = Color::White;
         board
+    }
+
+    /// Execute a move, returns the Move with captured piece info for unmake
+    pub fn make_move(&mut self, from: Square, to: Square) -> Move {
+        let captured = self.get_piece(to);
+        let piece = self.get_piece(from);
+
+        self.set_piece(to, piece);
+        self.set_piece(from, None);
+        self.side_to_move = self.side_to_move.opposite();
+
+        Move { from, to, captured }
+    }
+
+    /// Undo a move, restoring the previous state
+    pub fn unmake_move(&mut self, mv: Move) {
+        let piece = self.get_piece(mv.to);
+
+        self.set_piece(mv.from, piece);
+        self.set_piece(mv.to, mv.captured);
+        self.side_to_move = self.side_to_move.opposite();
     }
 }
 
@@ -268,5 +307,86 @@ mod tests {
         assert!(display.contains("K")); // White king (uppercase)
         assert!(display.contains("A")); // White QNC/Actress (uppercase)
         assert!(display.contains("Side to move: White"));
+    }
+
+    #[test]
+    fn test_make_move_basic() {
+        let mut board = Board::new();
+        let king = Piece::new(PieceType::King, Color::White);
+        board.set_piece((4, 4), Some(king)); // e4
+
+        // Move king from e4 to e5
+        let mv = board.make_move((4, 4), (3, 4));
+
+        // Check piece moved
+        assert_eq!(board.get_piece((4, 4)), None, "Original square should be empty");
+        assert_eq!(board.get_piece((3, 4)), Some(king), "Piece should be at new square");
+
+        // Check move info
+        assert_eq!(mv.from, (4, 4));
+        assert_eq!(mv.to, (3, 4));
+        assert_eq!(mv.captured, None);
+
+        // Check side to move toggled
+        assert_eq!(board.side_to_move(), Color::Black);
+    }
+
+    #[test]
+    fn test_make_move_capture() {
+        let mut board = Board::new();
+        let white_king = Piece::new(PieceType::King, Color::White);
+        let black_king = Piece::new(PieceType::King, Color::Black);
+
+        board.set_piece((4, 4), Some(white_king));
+        board.set_piece((3, 4), Some(black_king));
+
+        // White king captures black king
+        let mv = board.make_move((4, 4), (3, 4));
+
+        // Check capture info stored
+        assert_eq!(mv.captured, Some(black_king));
+
+        // Check board state
+        assert_eq!(board.get_piece((4, 4)), None);
+        assert_eq!(board.get_piece((3, 4)), Some(white_king));
+    }
+
+    #[test]
+    fn test_unmake_move_basic() {
+        let mut board = Board::new();
+        let king = Piece::new(PieceType::King, Color::White);
+        board.set_piece((4, 4), Some(king));
+
+        // Make and unmake move
+        let mv = board.make_move((4, 4), (3, 4));
+        board.unmake_move(mv);
+
+        // Check board restored
+        assert_eq!(board.get_piece((4, 4)), Some(king), "Piece should be back at original square");
+        assert_eq!(board.get_piece((3, 4)), None, "Target square should be empty");
+
+        // Check side to move restored
+        assert_eq!(board.side_to_move(), Color::White);
+    }
+
+    #[test]
+    fn test_unmake_move_capture() {
+        let mut board = Board::new();
+        let white_king = Piece::new(PieceType::King, Color::White);
+        let black_king = Piece::new(PieceType::King, Color::Black);
+
+        board.set_piece((4, 4), Some(white_king));
+        board.set_piece((3, 4), Some(black_king));
+
+        // Make and unmake capture
+        let mv = board.make_move((4, 4), (3, 4));
+        board.unmake_move(mv);
+
+        // Check both pieces restored
+        assert_eq!(board.get_piece((4, 4)), Some(white_king), "White king should be restored");
+        assert_eq!(board.get_piece((3, 4)), Some(black_king), "Captured piece should be restored");
+
+        // Check side to move restored
+        assert_eq!(board.side_to_move(), Color::White);
     }
 }
