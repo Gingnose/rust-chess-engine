@@ -1,6 +1,9 @@
 // Board representation and piece logic
 // Using Mailbox (8x8 array) approach for clarity and extensibility
 
+use crate::pieces::king::KingMoves;
+use crate::pieces::qnc::QncMoves;
+
 // =============================================================================
 // Type Definitions
 // =============================================================================
@@ -161,6 +164,50 @@ impl Board {
         self.set_piece(mv.from, piece);
         self.set_piece(mv.to, mv.captured);
         self.side_to_move = self.side_to_move.opposite();
+    }
+
+    /// Find the position of a King of the given color
+    pub fn find_king(&self, color: Color) -> Option<Square> {
+        for row in 0..8 {
+            for col in 0..8 {
+                if let Some(piece) = self.squares[row][col] {
+                    if piece.piece_type == PieceType::King && piece.color == color {
+                        return Some((row as u8, col as u8));
+                    }
+                }
+            }
+        }
+        None
+    }
+
+    /// Check if a square is attacked by any piece of the given color
+    pub fn is_square_attacked(&self, square: Square, by_color: Color) -> bool {
+        for row in 0..8 {
+            for col in 0..8 {
+                if let Some(piece) = self.squares[row][col] {
+                    if piece.color == by_color {
+                        let from = (row as u8, col as u8);
+                        let moves = match piece.piece_type {
+                            PieceType::King => KingMoves::generate_moves(self, from),
+                            PieceType::QNC => QncMoves::generate_moves(self, from),
+                        };
+                        if moves.contains(&square) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        false
+    }
+
+    /// Check if the King of the given color is in check
+    pub fn is_in_check(&self, color: Color) -> bool {
+        if let Some(king_square) = self.find_king(color) {
+            self.is_square_attacked(king_square, color.opposite())
+        } else {
+            false // No king found (shouldn't happen in valid game)
+        }
     }
 }
 
@@ -388,5 +435,85 @@ mod tests {
 
         // Check side to move restored
         assert_eq!(board.side_to_move(), Color::White);
+    }
+
+    #[test]
+    fn test_find_king() {
+        let board = Board::setup_k_vs_qnc();
+
+        // Find white king at e1 (row 7, col 4)
+        assert_eq!(board.find_king(Color::White), Some((7, 4)));
+
+        // Find black king at e8 (row 0, col 4)
+        assert_eq!(board.find_king(Color::Black), Some((0, 4)));
+    }
+
+    #[test]
+    fn test_king_not_in_check() {
+        // K vs QNC setup: kings are far apart
+        let board = Board::setup_k_vs_qnc();
+
+        // Black king at e8 is not in check (QNC at d1 can't reach)
+        assert!(!board.is_in_check(Color::Black));
+
+        // White king at e1 is not attacked by black
+        assert!(!board.is_in_check(Color::White));
+    }
+
+    #[test]
+    fn test_king_in_check_by_qnc_queen_move() {
+        let mut board = Board::new();
+
+        // Black king at e8 (row 0, col 4)
+        board.set_piece((0, 4), Some(Piece::new(PieceType::King, Color::Black)));
+
+        // White QNC at e1 (row 7, col 4) - same file, Queen-like attack
+        board.set_piece((7, 4), Some(Piece::new(PieceType::QNC, Color::White)));
+
+        // Black king should be in check (QNC attacks on e-file)
+        assert!(board.is_in_check(Color::Black));
+    }
+
+    #[test]
+    fn test_king_in_check_by_qnc_knight_move() {
+        let mut board = Board::new();
+
+        // Black king at e4 (row 4, col 4)
+        board.set_piece((4, 4), Some(Piece::new(PieceType::King, Color::Black)));
+
+        // White QNC at f6 (row 2, col 5) - Knight-like attack (2,1)
+        board.set_piece((2, 5), Some(Piece::new(PieceType::QNC, Color::White)));
+
+        // Black king should be in check
+        assert!(board.is_in_check(Color::Black));
+    }
+
+    #[test]
+    fn test_king_in_check_by_qnc_camel_move() {
+        let mut board = Board::new();
+
+        // Black king at e4 (row 4, col 4)
+        board.set_piece((4, 4), Some(Piece::new(PieceType::King, Color::Black)));
+
+        // White QNC at f7 (row 1, col 5) - Camel-like attack (3,1)
+        board.set_piece((1, 5), Some(Piece::new(PieceType::QNC, Color::White)));
+
+        // Black king should be in check
+        assert!(board.is_in_check(Color::Black));
+    }
+
+    #[test]
+    fn test_king_in_check_by_enemy_king() {
+        let mut board = Board::new();
+
+        // Black king at e4 (row 4, col 4)
+        board.set_piece((4, 4), Some(Piece::new(PieceType::King, Color::Black)));
+
+        // White king at e5 (row 3, col 4) - adjacent
+        board.set_piece((3, 4), Some(Piece::new(PieceType::King, Color::White)));
+
+        // Both kings attack each other
+        assert!(board.is_in_check(Color::Black));
+        assert!(board.is_in_check(Color::White));
     }
 }
