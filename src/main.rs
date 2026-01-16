@@ -1,5 +1,7 @@
 use rust_chess_engine::board::{Board, Color, Square};
 use rust_chess_engine::search::find_best_move;
+use rust_chess_engine::uci::uci_loop;
+use std::env;
 use std::io::{self, Write};
 
 /// Parse algebraic notation (e.g., "e2e4") to (from, to) squares
@@ -47,10 +49,20 @@ fn print_help() {
 }
 
 fn main() {
+    // Check for UCI mode
+    let args: Vec<String> = env::args().collect();
+    if args.iter().any(|arg| arg == "--uci" || arg == "uci") {
+        uci_loop();
+        return;
+    }
+
+    // Interactive CLI mode
     println!("╔═══════════════════════════════════════╗");
     println!("║     K vs QNC Chess Engine             ║");
     println!("║     Checkmate the lone King!          ║");
     println!("╚═══════════════════════════════════════╝");
+    println!();
+    println!("Run with --uci for UCI protocol mode.");
     println!();
 
     let mut board = Board::setup_k_vs_qnc();

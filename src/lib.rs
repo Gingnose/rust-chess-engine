@@ -4,3 +4,4 @@
 pub mod board;
 pub mod pieces;
 pub mod search;
+pub mod uci;
