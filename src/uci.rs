@@ -80,6 +80,7 @@ pub fn uci_loop() {
 
             "ucinewgame" => {
                 board = Board::setup_amazon_vs_rook();
+                board.clear_history();
             }
 
             "position" => {
@@ -137,6 +138,7 @@ fn parse_position(board: &mut Board, args: &[&str]) {
     match args[0] {
         "startpos" => {
             *board = Board::setup_amazon_vs_rook();
+            board.clear_history();
         }
         "fen" => {
             // Collect FEN parts (everything between "fen" and "moves" or end)
@@ -146,6 +148,7 @@ fn parse_position(board: &mut Board, args: &[&str]) {
                 let fen_string = fen_parts.join(" ");
                 if let Some(parsed_board) = Board::from_fen(&fen_string) {
                     *board = parsed_board;
+                    board.clear_history();
                 } else {
                     // FEN parsing failed, use default position
                     *board = Board::setup_amazon_vs_rook();

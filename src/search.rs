@@ -144,6 +144,12 @@ fn evaluate_material(board: &Board, for_color: Color) -> i32 {
     our_material - enemy_material
 }
 
+/// Quick material evaluation for repetition detection
+/// Returns material from side to move's perspective
+fn evaluate_material_only(board: &Board) -> i32 {
+    evaluate_material(board, board.side_to_move())
+}
+
 /// Evaluate piece safety - penalize pieces that are attacked
 fn evaluate_piece_safety(board: &Board, for_color: Color) -> i32 {
     let mut penalty = 0;
@@ -507,6 +513,13 @@ fn quiescence(board: &mut Board, mut alpha: i32, beta: i32) -> i32 {
 /// Negamax search with Alpha-Beta pruning
 /// Returns the score of the position from the side to move's perspective
 pub fn negamax(board: &mut Board, depth: i32, mut alpha: i32, beta: i32) -> i32 {
+    // Check for repetition - if position repeated twice, it's essentially a draw
+    // Return 0 (draw score) - this is fair: if we're winning we'll find another way,
+    // if we're losing, a draw is actually good
+    if board.repetition_count() >= 2 {
+        return 0; // Threefold repetition = draw
+    }
+
     // Base case: reached maximum depth - use quiescence search
     if depth == 0 {
         return quiescence(board, alpha, beta);
