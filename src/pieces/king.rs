@@ -98,7 +98,7 @@ mod tests {
         // Place King on e4
         board.set_piece((4, 4), Some(Piece::new(PieceType::King, Color::White)));
         // Place own piece on e5
-        board.set_piece((3, 4), Some(Piece::new(PieceType::QNC, Color::White)));
+        board.set_piece((3, 4), Some(Piece::new(PieceType::Amazon, Color::White)));
 
         let moves = KingMoves::generate_moves(&board, (4, 4));
 

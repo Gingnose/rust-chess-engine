@@ -1,4 +1,4 @@
-// Evaluation function for K vs QNC endgame
+// Evaluation function for Amazon + K vs R + K endgame
 // Goal: Push enemy King to corner/edge and deliver checkmate
 
 use crate::board::{Board, Color, Square};
@@ -104,10 +104,10 @@ mod tests {
     fn test_checkmate_score() {
         let mut board = Board::new();
 
-        // Checkmate position: Black king at a8, White king at a6, White QNC at b6
+        // Checkmate position: Black king at a8, White king at a6, White Amazon at b6
         board.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
         board.set_piece((2, 0), Some(Piece::new(PieceType::King, Color::White)));
-        board.set_piece((2, 1), Some(Piece::new(PieceType::QNC, Color::White)));
+        board.set_piece((2, 1), Some(Piece::new(PieceType::Amazon, Color::White)));
 
         // From White's perspective, this is checkmate (max score)
         let score = evaluate(&mut board, Color::White);
@@ -125,7 +125,7 @@ mod tests {
         // Stalemate position from previous test
         board.set_piece((0, 7), Some(Piece::new(PieceType::King, Color::Black))); // h8
         board.set_piece((2, 7), Some(Piece::new(PieceType::King, Color::White))); // h6
-        board.set_piece((2, 4), Some(Piece::new(PieceType::QNC, Color::White))); // e6
+        board.set_piece((2, 4), Some(Piece::new(PieceType::Amazon, Color::White))); // e6
 
         // Stalemate = draw = 0
         let score = evaluate(&mut board, Color::White);
@@ -140,12 +140,12 @@ mod tests {
         // Setup 1: Black king in corner (a8)
         board_corner.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
         board_corner.set_piece((7, 4), Some(Piece::new(PieceType::King, Color::White)));
-        board_corner.set_piece((7, 3), Some(Piece::new(PieceType::QNC, Color::White)));
+        board_corner.set_piece((7, 3), Some(Piece::new(PieceType::Amazon, Color::White)));
 
         // Setup 2: Black king in center (d4)
         board_center.set_piece((4, 3), Some(Piece::new(PieceType::King, Color::Black)));
         board_center.set_piece((7, 4), Some(Piece::new(PieceType::King, Color::White)));
-        board_center.set_piece((7, 3), Some(Piece::new(PieceType::QNC, Color::White)));
+        board_center.set_piece((7, 3), Some(Piece::new(PieceType::Amazon, Color::White)));
 
         let score_corner = evaluate(&mut board_corner, Color::White);
         let score_center = evaluate(&mut board_center, Color::White);
@@ -167,12 +167,12 @@ mod tests {
         // Setup 1: Black king in check
         board_check.set_piece((0, 4), Some(Piece::new(PieceType::King, Color::Black)));
         board_check.set_piece((7, 4), Some(Piece::new(PieceType::King, Color::White)));
-        board_check.set_piece((4, 4), Some(Piece::new(PieceType::QNC, Color::White))); // On same file
+        board_check.set_piece((4, 4), Some(Piece::new(PieceType::Amazon, Color::White))); // On same file
 
         // Setup 2: Black king not in check
         board_no_check.set_piece((0, 4), Some(Piece::new(PieceType::King, Color::Black)));
         board_no_check.set_piece((7, 4), Some(Piece::new(PieceType::King, Color::White)));
-        board_no_check.set_piece((7, 3), Some(Piece::new(PieceType::QNC, Color::White))); // Not attacking
+        board_no_check.set_piece((7, 3), Some(Piece::new(PieceType::Amazon, Color::White))); // Not attacking
 
         let score_check = evaluate(&mut board_check, Color::White);
         let score_no_check = evaluate(&mut board_no_check, Color::White);
@@ -194,12 +194,12 @@ mod tests {
         // Setup 1: Kings close together
         board_close.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
         board_close.set_piece((2, 2), Some(Piece::new(PieceType::King, Color::White))); // Close
-        board_close.set_piece((7, 7), Some(Piece::new(PieceType::QNC, Color::White)));
+        board_close.set_piece((7, 7), Some(Piece::new(PieceType::Amazon, Color::White)));
 
         // Setup 2: Kings far apart
         board_far.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
         board_far.set_piece((7, 7), Some(Piece::new(PieceType::King, Color::White))); // Far
-        board_far.set_piece((7, 6), Some(Piece::new(PieceType::QNC, Color::White)));
+        board_far.set_piece((7, 6), Some(Piece::new(PieceType::Amazon, Color::White)));
 
         let score_close = evaluate(&mut board_close, Color::White);
         let score_far = evaluate(&mut board_far, Color::White);

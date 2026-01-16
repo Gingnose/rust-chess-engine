@@ -1,8 +1,9 @@
 // Board representation and piece logic
 // Using Mailbox (8x8 array) approach for clarity and extensibility
 
+use crate::pieces::amazon::AmazonMoves;
 use crate::pieces::king::KingMoves;
-use crate::pieces::qnc::QncMoves;
+use crate::pieces::rook::RookMoves;
 
 // =============================================================================
 // Type Definitions
@@ -32,13 +33,14 @@ impl Color {
 }
 
 /// Type of a chess piece
-/// For now, only King and QNC (Actress) are needed for K vs QNC endgame
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub enum PieceType {
     King,
-    /// QNC = Queen + Knight + Camel (Actress)
-    /// Moves like Queen (sliding), Knight (2,1 jump), and Camel (3,1 jump)
-    QNC,
+    /// Amazon = Queen + Knight
+    /// Moves like Queen (sliding) and Knight (2,1 jump)
+    Amazon,
+    /// Rook - moves horizontally and vertically
+    Rook,
 }
 
 /// A chess piece with type and color
@@ -127,22 +129,149 @@ impl Board {
         self.side_to_move = color;
     }
 
-    /// Setup the K vs QNC starting position
-    /// Black King on e8, White King on e1, White QNC on d1
-    pub fn setup_k_vs_qnc() -> Self {
+    /// Setup the Amazon + K vs R + K starting position
+    /// White: Amazon on d1, King on e1
+    /// Black: Rook on a8, King on e8
+    pub fn setup_amazon_vs_rook() -> Self {
         let mut board = Board::new();
+
+        // Black Rook on a8 (row 0, col 0)
+        board.set_piece((0, 0), Some(Piece::new(PieceType::Rook, Color::Black)));
 
         // Black King on e8 (row 0, col 4)
         board.set_piece((0, 4), Some(Piece::new(PieceType::King, Color::Black)));
 
+        // White Amazon on d1 (row 7, col 3)
+        board.set_piece((7, 3), Some(Piece::new(PieceType::Amazon, Color::White)));
+
         // White King on e1 (row 7, col 4)
         board.set_piece((7, 4), Some(Piece::new(PieceType::King, Color::White)));
 
-        // White QNC (Actress) on d1 (row 7, col 3)
-        board.set_piece((7, 3), Some(Piece::new(PieceType::QNC, Color::White)));
-
         board.side_to_move = Color::White;
         board
+    }
+
+    /// Create a board from FEN notation
+    /// FEN format: "r3k3/8/8/8/8/8/8/3AK3 w - - 0 1"
+    /// Supported pieces: K/k (King), A/a (Amazon), R/r (Rook), Q/q (Queen as Amazon)
+    pub fn from_fen(fen: &str) -> Option<Self> {
+        let parts: Vec<&str> = fen.split_whitespace().collect();
+        if parts.is_empty() {
+            return None;
+        }
+
+        let mut board = Board::new();
+
+        // Parse piece placement (first part)
+        let ranks: Vec<&str> = parts[0].split('/').collect();
+        if ranks.len() != 8 {
+            return None;
+        }
+
+        for (row, rank_str) in ranks.iter().enumerate() {
+            let mut col = 0usize;
+            for c in rank_str.chars() {
+                if col >= 8 {
+                    break;
+                }
+                match c {
+                    '1'..='8' => {
+                        // Empty squares
+                        col += c.to_digit(10).unwrap() as usize;
+                    }
+                    'K' => {
+                        board.set_piece((row as u8, col as u8), Some(Piece::new(PieceType::King, Color::White)));
+                        col += 1;
+                    }
+                    'k' => {
+                        board.set_piece((row as u8, col as u8), Some(Piece::new(PieceType::King, Color::Black)));
+                        col += 1;
+                    }
+                    'A' | 'Q' => {
+                        // Amazon (or Queen treated as Amazon for compatibility)
+                        board.set_piece((row as u8, col as u8), Some(Piece::new(PieceType::Amazon, Color::White)));
+                        col += 1;
+                    }
+                    'a' | 'q' => {
+                        board.set_piece((row as u8, col as u8), Some(Piece::new(PieceType::Amazon, Color::Black)));
+                        col += 1;
+                    }
+                    'R' => {
+                        board.set_piece((row as u8, col as u8), Some(Piece::new(PieceType::Rook, Color::White)));
+                        col += 1;
+                    }
+                    'r' => {
+                        board.set_piece((row as u8, col as u8), Some(Piece::new(PieceType::Rook, Color::Black)));
+                        col += 1;
+                    }
+                    _ => {
+                        // Unknown piece, skip
+                        col += 1;
+                    }
+                }
+            }
+        }
+
+        // Parse side to move (second part)
+        if parts.len() > 1 {
+            board.side_to_move = match parts[1] {
+                "w" | "W" => Color::White,
+                "b" | "B" => Color::Black,
+                _ => Color::White,
+            };
+        }
+
+        // Ignore castling, en passant, halfmove clock, and fullmove number for now
+
+        Some(board)
+    }
+
+    /// Convert board to FEN notation
+    pub fn to_fen(&self) -> String {
+        let mut fen = String::new();
+
+        // Piece placement
+        for row in 0..8 {
+            let mut empty_count = 0;
+            for col in 0..8 {
+                match self.squares[row][col] {
+                    None => {
+                        empty_count += 1;
+                    }
+                    Some(piece) => {
+                        if empty_count > 0 {
+                            fen.push_str(&empty_count.to_string());
+                            empty_count = 0;
+                        }
+                        let c = match piece.piece_type {
+                            PieceType::King => 'K',
+                            PieceType::Amazon => 'A',
+                            PieceType::Rook => 'R',
+                        };
+                        if piece.color == Color::Black {
+                            fen.push(c.to_ascii_lowercase());
+                        } else {
+                            fen.push(c);
+                        }
+                    }
+                }
+            }
+            if empty_count > 0 {
+                fen.push_str(&empty_count.to_string());
+            }
+            if row < 7 {
+                fen.push('/');
+            }
+        }
+
+        // Side to move
+        fen.push(' ');
+        fen.push(if self.side_to_move == Color::White { 'w' } else { 'b' });
+
+        // Simplified: no castling, no en passant
+        fen.push_str(" - - 0 1");
+
+        fen
     }
 
     /// Execute a move, returns the Move with captured piece info for unmake
@@ -189,7 +318,8 @@ impl Board {
                         let from = (row as u8, col as u8);
                         let moves = match piece.piece_type {
                             PieceType::King => KingMoves::generate_moves(self, from),
-                            PieceType::QNC => QncMoves::generate_moves(self, from),
+                            PieceType::Amazon => AmazonMoves::generate_moves(self, from),
+                            PieceType::Rook => RookMoves::generate_moves(self, from),
                         };
                         if moves.contains(&square) {
                             return true;
@@ -223,7 +353,8 @@ impl Board {
                         let from = (row as u8, col as u8);
                         let pseudo_moves = match piece.piece_type {
                             PieceType::King => KingMoves::generate_moves(self, from),
-                            PieceType::QNC => QncMoves::generate_moves(self, from),
+                            PieceType::Amazon => AmazonMoves::generate_moves(self, from),
+                            PieceType::Rook => RookMoves::generate_moves(self, from),
                         };
 
                         // Filter: only keep moves that don't leave King in check
@@ -304,7 +435,8 @@ impl std::fmt::Display for Board {
                     Some(piece) => {
                         let c = match piece.piece_type {
                             PieceType::King => 'K',
-                            PieceType::QNC => 'A', // A for Actress
+                            PieceType::Amazon => 'A', // A for Amazon
+                            PieceType::Rook => 'R',
                         };
                         // Lowercase for black pieces
                         if piece.color == Color::Black {
@@ -348,9 +480,9 @@ mod tests {
         assert_eq!(white_king.piece_type, PieceType::King);
         assert_eq!(white_king.color, Color::White);
 
-        let white_qnc = Piece::new(PieceType::QNC, Color::White);
-        assert_eq!(white_qnc.piece_type, PieceType::QNC);
-        assert_eq!(white_qnc.color, Color::White);
+        let white_amazon = Piece::new(PieceType::Amazon, Color::White);
+        assert_eq!(white_amazon.piece_type, PieceType::Amazon);
+        assert_eq!(white_amazon.color, Color::White);
     }
 
     #[test]
@@ -386,22 +518,28 @@ mod tests {
     }
 
     #[test]
-    fn test_k_vs_qnc_setup() {
-        let board = Board::setup_k_vs_qnc();
+    fn test_amazon_vs_rook_setup() {
+        let board = Board::setup_amazon_vs_rook();
+
+        // Black Rook on a8 (row 0, col 0)
+        let black_rook = board.get_piece((0, 0)).expect("There should be a piece at (0, 0)");
+        assert_eq!(black_rook.piece_type, PieceType::Rook, "Piece at (0, 0) should be a Rook");
+        assert_eq!(black_rook.color, Color::Black, "Rook at (0, 0) should be Black");
 
         // Black King on e8 (row 0, col 4)
         let black_king = board.get_piece((0, 4)).expect("There should be a piece at (0, 4)");
         assert_eq!(black_king.piece_type, PieceType::King, "Piece at (0, 4) should be a King");
         assert_eq!(black_king.color, Color::Black, "King at (0, 4) should be Black");
 
+        // White Amazon on d1 (row 7, col 3)
+        let white_amazon = board.get_piece((7, 3)).expect("There should be a piece at (7, 3)");
+        assert_eq!(white_amazon.piece_type, PieceType::Amazon, "Piece at (7, 3) should be Amazon");
+        assert_eq!(white_amazon.color, Color::White, "Amazon at (7, 3) should be White");
+
         // White King on e1 (row 7, col 4)
         let white_king = board.get_piece((7, 4)).expect("There should be a piece at (7, 4)");
         assert_eq!(white_king.piece_type, PieceType::King, "Piece at (7, 4) should be a King");
         assert_eq!(white_king.color, Color::White, "King at (7, 4) should be White");
-        // White QNC on d1 (row 7, col 3)
-        let white_qnc = board.get_piece((7, 3)).expect("There should be a piece at (7, 3)");
-        assert_eq!(white_qnc.piece_type, PieceType::QNC, "Piece at (7, 3) should be a QNC");
-        assert_eq!(white_qnc.color, Color::White, "QNC at (7, 3) should be White");
 
         // Side to move is White
         assert_eq!(board.side_to_move(), Color::White);
@@ -409,14 +547,15 @@ mod tests {
 
     #[test]
     fn test_board_display() {
-        let board = Board::setup_k_vs_qnc();
+        let board = Board::setup_amazon_vs_rook();
         let display = format!("{}", board);
 
         // Check that the display contains expected elements
         assert!(display.contains("a b c d e f g h"));
         assert!(display.contains("k")); // Black king (lowercase)
         assert!(display.contains("K")); // White king (uppercase)
-        assert!(display.contains("A")); // White QNC/Actress (uppercase)
+        assert!(display.contains("A")); // White Amazon (uppercase)
+        assert!(display.contains("r")); // Black rook (lowercase)
         assert!(display.contains("Side to move: White"));
     }
 
@@ -503,7 +642,7 @@ mod tests {
 
     #[test]
     fn test_find_king() {
-        let board = Board::setup_k_vs_qnc();
+        let board = Board::setup_amazon_vs_rook();
 
         // Find white king at e1 (row 7, col 4)
         assert_eq!(board.find_king(Color::White), Some((7, 4)));
@@ -514,10 +653,10 @@ mod tests {
 
     #[test]
     fn test_king_not_in_check() {
-        // K vs QNC setup: kings are far apart
-        let board = Board::setup_k_vs_qnc();
+        // Amazon vs Rook setup: kings are far apart
+        let board = Board::setup_amazon_vs_rook();
 
-        // Black king at e8 is not in check (QNC at d1 can't reach)
+        // Black king at e8 is not in check (Amazon at d1 can't reach)
         assert!(!board.is_in_check(Color::Black));
 
         // White king at e1 is not attacked by black
@@ -525,42 +664,42 @@ mod tests {
     }
 
     #[test]
-    fn test_king_in_check_by_qnc_queen_move() {
+    fn test_king_in_check_by_amazon_queen_move() {
         let mut board = Board::new();
 
         // Black king at e8 (row 0, col 4)
         board.set_piece((0, 4), Some(Piece::new(PieceType::King, Color::Black)));
 
-        // White QNC at e1 (row 7, col 4) - same file, Queen-like attack
-        board.set_piece((7, 4), Some(Piece::new(PieceType::QNC, Color::White)));
+        // White Amazon at e1 (row 7, col 4) - same file, Queen-like attack
+        board.set_piece((7, 4), Some(Piece::new(PieceType::Amazon, Color::White)));
 
-        // Black king should be in check (QNC attacks on e-file)
+        // Black king should be in check (Amazon attacks on e-file)
         assert!(board.is_in_check(Color::Black));
     }
 
     #[test]
-    fn test_king_in_check_by_qnc_knight_move() {
+    fn test_king_in_check_by_amazon_knight_move() {
         let mut board = Board::new();
 
         // Black king at e4 (row 4, col 4)
         board.set_piece((4, 4), Some(Piece::new(PieceType::King, Color::Black)));
 
-        // White QNC at f6 (row 2, col 5) - Knight-like attack (2,1)
-        board.set_piece((2, 5), Some(Piece::new(PieceType::QNC, Color::White)));
+        // White Amazon at f6 (row 2, col 5) - Knight-like attack (2,1)
+        board.set_piece((2, 5), Some(Piece::new(PieceType::Amazon, Color::White)));
 
         // Black king should be in check
         assert!(board.is_in_check(Color::Black));
     }
 
     #[test]
-    fn test_king_in_check_by_qnc_camel_move() {
+    fn test_king_in_check_by_rook() {
         let mut board = Board::new();
 
         // Black king at e4 (row 4, col 4)
         board.set_piece((4, 4), Some(Piece::new(PieceType::King, Color::Black)));
 
-        // White QNC at f7 (row 1, col 5) - Camel-like attack (3,1)
-        board.set_piece((1, 5), Some(Piece::new(PieceType::QNC, Color::White)));
+        // White Rook at e1 (row 7, col 4) - same file attack
+        board.set_piece((7, 4), Some(Piece::new(PieceType::Rook, Color::White)));
 
         // Black king should be in check
         assert!(board.is_in_check(Color::Black));
@@ -588,8 +727,8 @@ mod tests {
         // White king at e1 (row 7, col 4)
         board.set_piece((7, 4), Some(Piece::new(PieceType::King, Color::White)));
 
-        // Black QNC at e8 (row 0, col 4) - controls e-file
-        board.set_piece((0, 4), Some(Piece::new(PieceType::QNC, Color::Black)));
+        // Black Amazon at e8 (row 0, col 4) - controls e-file
+        board.set_piece((0, 4), Some(Piece::new(PieceType::Amazon, Color::Black)));
 
         // Black king somewhere safe
         board.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
@@ -634,8 +773,8 @@ mod tests {
         // White king at a6 (row 2, col 0) - cuts off escape
         board.set_piece((2, 0), Some(Piece::new(PieceType::King, Color::White)));
 
-        // White QNC at b6 (row 2, col 1) - gives check and covers escape squares
-        board.set_piece((2, 1), Some(Piece::new(PieceType::QNC, Color::White)));
+        // White Amazon at b6 (row 2, col 1) - gives check and covers escape squares
+        board.set_piece((2, 1), Some(Piece::new(PieceType::Amazon, Color::White)));
 
         board.set_side_to_move(Color::Black);
 
@@ -658,8 +797,8 @@ mod tests {
         // White king at a6 (row 2, col 0) - cuts off escape
         board.set_piece((2, 0), Some(Piece::new(PieceType::King, Color::White)));
 
-        // White QNC at b6 (row 2, col 1) - gives check and covers escape squares
-        board.set_piece((2, 1), Some(Piece::new(PieceType::QNC, Color::White)));
+        // White Amazon at b6 (row 2, col 1) - gives check and covers escape squares
+        board.set_piece((2, 1), Some(Piece::new(PieceType::Amazon, Color::White)));
 
         // Black is in checkmate
         assert!(board.is_checkmate(Color::Black));
@@ -687,36 +826,25 @@ mod tests {
     fn test_is_stalemate() {
         let mut board = Board::new();
 
-        // Stalemate position using only Kings (K vs K can create stalemate):
+        // Stalemate position with Amazon + K vs K:
         // Black king at a8 (row 0, col 0)
         // White king at b6 (row 2, col 1) - controls a7, b7
-        // White QNC somewhere that blocks a7 but NOT a8
+        // White Amazon at d7 (row 1, col 3) - controls b8 via knight move
+        //   d7 to a8: (-1, -3) = NOT Amazon move (Amazon has no camel)
+        //   d7 to b8: (-1, -2) = knight move, blocks b8
         //
-        // Actually, for simplicity, let's create stalemate with K + QNC vs K:
-        // Black king at h8 (row 0, col 7)
-        // White king at h6 (row 2, col 7) - controls g7, h7 (same file, blocks those)
-        // White QNC at f7 (row 1, col 5) - needs to block g8 without attacking h8
-        //   f7 to h8: (-1, +2) -> this is a knight move! Attacks h8!
+        // Black king at a8 escape squares:
+        //   a7 -> blocked by White king
+        //   b7 -> blocked by White king
+        //   b8 -> blocked by Amazon (knight move)
         //
-        // Let's try QNC at e6 (row 2, col 4):
-        //   e6 to h8: (-2, +3) -> NOT any valid move (not queen/knight/camel)
-        //   e6 to g8: (-2, +2) -> diagonal, attacks g8
-        //   e6 to g7: (-1, +2) -> knight move, attacks g7  
-        //   e6 to h7: (-1, +3) -> camel move! (1,3), attacks h7
-        //
-        // So with White king at h6 and QNC at e6:
-        //   h8 -> NOT attacked (good!)
-        //   g8 -> attacked by QNC (diagonal)
-        //   g7 -> attacked by QNC (knight) and White king
-        //   h7 -> attacked by QNC (camel) and White king
-        //
-        // Black king at h8 has no legal moves = stalemate!
+        // Black king at a8 has no legal moves = stalemate!
 
-        board.set_piece((0, 7), Some(Piece::new(PieceType::King, Color::Black))); // h8
-        board.set_piece((2, 7), Some(Piece::new(PieceType::King, Color::White))); // h6
-        board.set_piece((2, 4), Some(Piece::new(PieceType::QNC, Color::White)));  // e6
+        board.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black))); // a8
+        board.set_piece((2, 1), Some(Piece::new(PieceType::King, Color::White))); // b6
+        board.set_piece((1, 3), Some(Piece::new(PieceType::Amazon, Color::White))); // d7
 
-        // Verify: black king at h8 is NOT in check
+        // Verify: black king at a8 is NOT in check
         assert!(!board.is_in_check(Color::Black), "Black should NOT be in check for stalemate");
 
         // Black is in stalemate (not in check, but no legal moves)
@@ -739,5 +867,69 @@ mod tests {
         // Neither side is in stalemate
         assert!(!board.is_stalemate(Color::White));
         assert!(!board.is_stalemate(Color::Black));
+    }
+
+    #[test]
+    fn test_from_fen_starting_position() {
+        let fen = "r3k3/8/8/8/8/8/8/3AK3 w - - 0 1";
+        let board = Board::from_fen(fen).expect("FEN should parse");
+
+        // Black Rook on a8 (row 0, col 0)
+        let black_rook = board.get_piece((0, 0)).expect("Should have piece at a8");
+        assert_eq!(black_rook.piece_type, PieceType::Rook);
+        assert_eq!(black_rook.color, Color::Black);
+
+        // Black King on e8 (row 0, col 4)
+        let black_king = board.get_piece((0, 4)).expect("Should have piece at e8");
+        assert_eq!(black_king.piece_type, PieceType::King);
+        assert_eq!(black_king.color, Color::Black);
+
+        // White Amazon on d1 (row 7, col 3)
+        let white_amazon = board.get_piece((7, 3)).expect("Should have piece at d1");
+        assert_eq!(white_amazon.piece_type, PieceType::Amazon);
+        assert_eq!(white_amazon.color, Color::White);
+
+        // White King on e1 (row 7, col 4)
+        let white_king = board.get_piece((7, 4)).expect("Should have piece at e1");
+        assert_eq!(white_king.piece_type, PieceType::King);
+        assert_eq!(white_king.color, Color::White);
+
+        // White to move
+        assert_eq!(board.side_to_move(), Color::White);
+    }
+
+    #[test]
+    fn test_from_fen_black_to_move() {
+        let fen = "r3k3/8/8/8/8/8/8/3AK3 b - - 0 1";
+        let board = Board::from_fen(fen).expect("FEN should parse");
+        assert_eq!(board.side_to_move(), Color::Black);
+    }
+
+    #[test]
+    fn test_to_fen() {
+        let board = Board::setup_amazon_vs_rook();
+        let fen = board.to_fen();
+        assert_eq!(fen, "r3k3/8/8/8/8/8/8/3AK3 w - - 0 1");
+    }
+
+    #[test]
+    fn test_fen_roundtrip() {
+        let original = Board::setup_amazon_vs_rook();
+        let fen = original.to_fen();
+        let restored = Board::from_fen(&fen).expect("Should parse own FEN");
+
+        // Verify pieces match
+        for row in 0..8 {
+            for col in 0..8 {
+                assert_eq!(
+                    original.get_piece((row, col)),
+                    restored.get_piece((row, col)),
+                    "Piece mismatch at ({}, {})",
+                    row,
+                    col
+                );
+            }
+        }
+        assert_eq!(original.side_to_move(), restored.side_to_move());
     }
 }

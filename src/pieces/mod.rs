@@ -1,3 +1,4 @@
-// let the compiler know that pieces/ is a modular directory
+// Piece movement modules
+pub mod amazon;
 pub mod king;
-pub mod qnc;
+pub mod rook;
