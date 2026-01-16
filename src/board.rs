@@ -209,6 +209,39 @@ impl Board {
             false // No king found (shouldn't happen in valid game)
         }
     }
+
+    /// Generate all legal moves for the current side to move
+    pub fn generate_legal_moves(&mut self) -> Vec<Move> {
+        let mut legal_moves = Vec::new();
+        let color = self.side_to_move;
+
+        // Find all pieces of current color and generate their moves
+        for row in 0..8 {
+            for col in 0..8 {
+                if let Some(piece) = self.squares[row][col] {
+                    if piece.color == color {
+                        let from = (row as u8, col as u8);
+                        let pseudo_moves = match piece.piece_type {
+                            PieceType::King => KingMoves::generate_moves(self, from),
+                            PieceType::QNC => QncMoves::generate_moves(self, from),
+                        };
+
+                        // Filter: only keep moves that don't leave King in check
+                        for to in pseudo_moves {
+                            let mv = self.make_move(from, to);
+                            let our_color = color; // make_move toggled side_to_move
+                            if !self.is_in_check(our_color) {
+                                legal_moves.push(mv);
+                            }
+                            self.unmake_move(mv);
+                        }
+                    }
+                }
+            }
+        }
+
+        legal_moves
+    }
 }
 
 // =============================================================================
@@ -515,5 +548,72 @@ mod tests {
         // Both kings attack each other
         assert!(board.is_in_check(Color::Black));
         assert!(board.is_in_check(Color::White));
+    }
+
+    #[test]
+    fn test_legal_moves_excludes_self_check() {
+        let mut board = Board::new();
+
+        // White king at e1 (row 7, col 4)
+        board.set_piece((7, 4), Some(Piece::new(PieceType::King, Color::White)));
+
+        // Black QNC at e8 (row 0, col 4) - controls e-file
+        board.set_piece((0, 4), Some(Piece::new(PieceType::QNC, Color::Black)));
+
+        // Black king somewhere safe
+        board.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
+
+        board.set_side_to_move(Color::White);
+        let legal_moves = board.generate_legal_moves();
+
+        // White king cannot stay on e-file (e2 would be check)
+        // Can only move to d1, d2, f1, f2
+        for mv in &legal_moves {
+            assert_ne!(mv.to.1, 4, "King should not move to e-file (col 4)");
+        }
+
+        // Should have exactly 4 legal moves (d1, d2, f1, f2)
+        assert_eq!(legal_moves.len(), 4);
+    }
+
+    #[test]
+    fn test_legal_moves_king_safe() {
+        let mut board = Board::new();
+
+        // White king at e4 (row 4, col 4) - center of board
+        board.set_piece((4, 4), Some(Piece::new(PieceType::King, Color::White)));
+
+        // Black king far away
+        board.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
+
+        board.set_side_to_move(Color::White);
+        let legal_moves = board.generate_legal_moves();
+
+        // King at center should have 8 legal moves
+        assert_eq!(legal_moves.len(), 8);
+    }
+
+    #[test]
+    fn test_legal_moves_checkmate_position() {
+        let mut board = Board::new();
+
+        // Black king at a8 (row 0, col 0) - corner
+        board.set_piece((0, 0), Some(Piece::new(PieceType::King, Color::Black)));
+
+        // White king at a6 (row 2, col 0) - cuts off escape
+        board.set_piece((2, 0), Some(Piece::new(PieceType::King, Color::White)));
+
+        // White QNC at b6 (row 2, col 1) - gives check and covers escape squares
+        board.set_piece((2, 1), Some(Piece::new(PieceType::QNC, Color::White)));
+
+        board.set_side_to_move(Color::Black);
+
+        // Black king is in check
+        assert!(board.is_in_check(Color::Black));
+
+        let legal_moves = board.generate_legal_moves();
+
+        // Black king has no legal moves - checkmate!
+        assert_eq!(legal_moves.len(), 0, "Should be checkmate with no legal moves");
     }
 }
