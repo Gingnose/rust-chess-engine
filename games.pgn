@@ -19,3 +19,24 @@
 7. Kg4 Rb3 {+M15/44 1.1s} 8. Kg5 Rg3+ {+M13/50 1.3s} 9. Kh6 Kf5 {+M7/245 0.36s}
 10. Kh7 Kf6 {+M5/245 0.007s} 11. Kh6 Rh3# {+M1/245 0.001s, Black mates} 0-1
 
+[Event "?"]
+[Site "?"]
+[Date "2026.01.17"]
+[Round "1"]
+[White "Amazon-Engine"]
+[Black "Fairy-Stockfish"]
+[Result "1-0"]
+[FEN "8/8/4k3/4r3/8/8/8/3AK3 w - - 0 1"]
+[GameDuration "00:00:04"]
+[GameEndTime "2026-01-17T05:57:39.454 JST"]
+[GameStartTime "2026-01-17T05:57:34.917 JST"]
+[PlyCount "17"]
+[SetUp "1"]
+[TimeControl "60+1"]
+[Variant "amazon"]
+
+1. Kf2 Rf5+ {-M14/87 1.7s} 2. Ke3 Re5+ {-M12/109 0.85s} 3. Kf4
+Rf5+ {-M10/245 0.61s} 4. Kg4 Rd5 {-M8/245 0.083s} 5. Af3 Kd6 {-M8/245 0.71s}
+6. Ae4+ Kc6 {-M6/245 0.023s} 7. Ab4+ Kd7 {-M4/245 0.004s} 8. Axd5+
+Ke8 {-M2/245 0.001s} 9. Ad6# {White mates} 1-0
+

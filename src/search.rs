@@ -1,13 +1,21 @@
 // Search algorithm for finding the best move
 // Uses Negamax with Alpha-Beta pruning
 
-use crate::board::{Board, Move, Square};
+use crate::board::{Board, Color, Move, PieceType, Square};
 
 // Score constants
 const CHECKMATE_SCORE: i32 = 100_000;
-const CHECK_BONUS: i32 = 50;
-const KING_PROXIMITY_WEIGHT: i32 = 10;
 const INFINITY: i32 = i32::MAX;
+
+// Material values
+const AMAZON_VALUE: i32 = 1500;  // Very powerful piece (Q + N)
+const ROOK_VALUE: i32 = 500;
+
+// Positional weights
+const CHECK_BONUS: i32 = 30;
+const KING_PROXIMITY_WEIGHT: i32 = 5;
+const AMAZON_CENTER_BONUS: i32 = 20;
+const PIECE_SAFETY_PENALTY: i32 = 50;
 
 /// Piece-Square Table for enemy King position
 /// Higher values = better for the attacker (King pushed to edge/corner)
@@ -20,6 +28,18 @@ const ENEMY_KING_PST: [[i32; 8]; 8] = [
     [3, 2, 1, 1, 1, 1, 2, 3],
     [3, 2, 2, 2, 2, 2, 2, 3],
     [4, 3, 3, 3, 3, 3, 3, 4],
+];
+
+/// Piece-Square Table for Amazon (center is better)
+const AMAZON_PST: [[i32; 8]; 8] = [
+    [0, 1, 1, 2, 2, 1, 1, 0],
+    [1, 2, 3, 3, 3, 3, 2, 1],
+    [1, 3, 4, 5, 5, 4, 3, 1],
+    [2, 3, 5, 6, 6, 5, 3, 2],
+    [2, 3, 5, 6, 6, 5, 3, 2],
+    [1, 3, 4, 5, 5, 4, 3, 1],
+    [1, 2, 3, 3, 3, 3, 2, 1],
+    [0, 1, 1, 2, 2, 1, 1, 0],
 ];
 
 // =============================================================================
@@ -48,17 +68,26 @@ pub fn evaluate(board: &mut Board) -> i32 {
 
     let mut score = 0;
 
-    // 2. Enemy King position (pushed to edge/corner is good)
+    // 2. Material evaluation (MOST IMPORTANT!)
+    score += evaluate_material(board, for_color);
+
+    // 3. Piece safety - penalize pieces under attack
+    score += evaluate_piece_safety(board, for_color);
+
+    // 4. Amazon position (center is better)
+    score += evaluate_amazon_position(board, for_color);
+
+    // 5. Enemy King position (pushed to edge/corner is good)
     if let Some(enemy_king_sq) = board.find_king(enemy_color) {
         score += evaluate_enemy_king_position(enemy_king_sq);
     }
 
-    // 3. Check bonus
+    // 6. Check bonus (smaller now since material is more important)
     if board.is_in_check(enemy_color) {
         score += CHECK_BONUS;
     }
 
-    // 4. King proximity
+    // 7. King proximity (for endgame)
     if let (Some(our_king_sq), Some(enemy_king_sq)) =
         (board.find_king(for_color), board.find_king(enemy_color))
     {
@@ -68,9 +97,84 @@ pub fn evaluate(board: &mut Board) -> i32 {
     score
 }
 
+/// Evaluate material balance
+fn evaluate_material(board: &Board, for_color: Color) -> i32 {
+    let mut our_material = 0;
+    let mut enemy_material = 0;
+
+    for row in 0..8 {
+        for col in 0..8 {
+            if let Some(piece) = board.get_piece((row, col)) {
+                let value = match piece.piece_type {
+                    PieceType::Amazon => AMAZON_VALUE,
+                    PieceType::Rook => ROOK_VALUE,
+                    PieceType::King => 0, // King has no material value
+                };
+                if piece.color == for_color {
+                    our_material += value;
+                } else {
+                    enemy_material += value;
+                }
+            }
+        }
+    }
+
+    our_material - enemy_material
+}
+
+/// Evaluate piece safety - penalize pieces that are attacked
+fn evaluate_piece_safety(board: &Board, for_color: Color) -> i32 {
+    let mut penalty = 0;
+    let enemy_color = for_color.opposite();
+
+    for row in 0..8 {
+        for col in 0..8 {
+            if let Some(piece) = board.get_piece((row, col)) {
+                if piece.color == for_color && piece.piece_type != PieceType::King {
+                    let square = (row, col);
+                    // If our piece is attacked, apply penalty
+                    if board.is_square_attacked(square, enemy_color) {
+                        // Penalty based on piece value
+                        let piece_value = match piece.piece_type {
+                            PieceType::Amazon => AMAZON_VALUE / 10,
+                            PieceType::Rook => ROOK_VALUE / 10,
+                            PieceType::King => 0,
+                        };
+                        penalty -= piece_value + PIECE_SAFETY_PENALTY;
+                    }
+                }
+            }
+        }
+    }
+
+    penalty
+}
+
+/// Evaluate Amazon position using PST
+fn evaluate_amazon_position(board: &Board, for_color: Color) -> i32 {
+    let mut score = 0;
+
+    for row in 0..8 {
+        for col in 0..8 {
+            if let Some(piece) = board.get_piece((row, col)) {
+                if piece.piece_type == PieceType::Amazon {
+                    let pst_value = AMAZON_PST[row as usize][col as usize] * AMAZON_CENTER_BONUS;
+                    if piece.color == for_color {
+                        score += pst_value;
+                    } else {
+                        score -= pst_value;
+                    }
+                }
+            }
+        }
+    }
+
+    score
+}
+
 fn evaluate_enemy_king_position(square: Square) -> i32 {
     let (row, col) = square;
-    ENEMY_KING_PST[row as usize][col as usize] * 100
+    ENEMY_KING_PST[row as usize][col as usize] * 50  // Reduced weight
 }
 
 fn evaluate_king_proximity(our_king: Square, enemy_king: Square) -> i32 {
