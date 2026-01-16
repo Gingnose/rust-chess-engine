@@ -292,6 +292,47 @@ header h1 {
     color: #22c55e;
 }
 
+.btn-analyze {
+    margin-top: 8px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-analyze:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
+}
+
+.btn-analyze:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-analyze.analyzing {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.best-move.from-analysis .label {
+    color: #3b82f6;
+}
+
+.best-move.from-analysis .move {
+    color: #f59e0b;
+    font-size: 1.1em;
+}
+
 /* === Chess Board === */
 .board-container {
     display: flex;

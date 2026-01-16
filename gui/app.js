@@ -565,20 +565,134 @@ function updateEvaluation(evalInfo, moveIndex) {
 
 function updateBestMove(moveIndex) {
     const bestMoveEl = document.getElementById('best-move');
+    bestMoveEl.className = 'best-move';
     
-    // Check if there's a next move in the history (Fairy Stockfish's response)
+    // Check if we have cached analysis for this position
+    const historyEntry = state.boardHistory[moveIndex];
+    if (historyEntry.analysis) {
+        const analysis = historyEntry.analysis;
+        bestMoveEl.className = 'best-move from-analysis';
+        bestMoveEl.innerHTML = `<span class="label">Fairy SF best:</span><span class="move">${analysis.bestMove}</span>`;
+        return;
+    }
+    
+    // Otherwise show the move that was played (if any)
     if (moveIndex < state.moveHistory.length) {
         const nextMove = state.moveHistory[moveIndex];
-        // Determine who played the next move
-        const historyEntry = state.boardHistory[moveIndex];
-        const nextPlayer = historyEntry.sideToMove; // Who is to move at current position
-        
-        // Show the move that was actually played
+        const nextPlayer = historyEntry.sideToMove;
         const playerName = nextPlayer === 'white' ? 'Engine' : 'Fairy SF';
         bestMoveEl.innerHTML = `<span class="label">${playerName} played:</span><span class="move">${nextMove.san}</span>`;
     } else {
-        bestMoveEl.innerHTML = '';
+        bestMoveEl.innerHTML = '<span class="label">Click Analyze for best move</span>';
     }
+}
+
+async function analyzeCurrentPosition() {
+    const btn = document.getElementById('btn-analyze');
+    const bestMoveEl = document.getElementById('best-move');
+    const scoreEl = document.getElementById('eval-score');
+    const detailEl = document.getElementById('eval-detail');
+    const barEl = document.getElementById('eval-bar-white');
+    
+    // Get current FEN
+    const fen = boardToFen(state.board, state.sideToMove);
+    
+    btn.disabled = true;
+    btn.classList.add('analyzing');
+    btn.textContent = '🔍 Analyzing...';
+    bestMoveEl.innerHTML = '<span class="label">Analyzing position...</span>';
+    
+    try {
+        const response = await fetch('/api/analyze', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fen, depth: 20 })
+        });
+        
+        if (!response.ok) {
+            throw new Error('Analysis failed');
+        }
+        
+        const result = await response.json();
+        
+        if (result.error) {
+            throw new Error(result.error);
+        }
+        
+        // Cache the analysis result
+        state.boardHistory[state.currentMoveIndex].analysis = result;
+        
+        // Update display with analysis results
+        bestMoveEl.className = 'best-move from-analysis';
+        bestMoveEl.innerHTML = `<span class="label">Fairy SF best:</span><span class="move">${result.bestMove}</span>`;
+        
+        // Update evaluation from analysis
+        if (result.score) {
+            let displayScore;
+            let barHeight;
+            
+            if (result.score.mate !== undefined) {
+                // Mate score (already from current side's perspective)
+                const mate = result.score.mate;
+                const sign = mate > 0 ? '+' : '';
+                displayScore = `M${sign}${mate}`;
+                scoreEl.className = 'eval-score mate';
+                barHeight = mate > 0 ? 95 : 5;
+            } else if (result.score.cp !== undefined) {
+                // Centipawn score (convert to pawns)
+                const score = result.score.cp / 100;
+                const sign = score > 0 ? '+' : '';
+                displayScore = `${sign}${score.toFixed(2)}`;
+                
+                if (score > 0.3) {
+                    scoreEl.className = 'eval-score positive';
+                } else if (score < -0.3) {
+                    scoreEl.className = 'eval-score negative';
+                } else {
+                    scoreEl.className = 'eval-score';
+                }
+                
+                barHeight = 50 + (Math.tanh(score / 3) * 45);
+            }
+            
+            scoreEl.textContent = displayScore;
+            detailEl.textContent = `depth: ${result.score.depth}`;
+            barEl.style.height = `${barHeight}%`;
+        }
+        
+    } catch (err) {
+        console.error('Analysis error:', err);
+        bestMoveEl.innerHTML = `<span class="label" style="color: #ef4444;">Analysis failed: ${err.message}</span>`;
+    } finally {
+        btn.disabled = false;
+        btn.classList.remove('analyzing');
+        btn.textContent = '🔍 Analyze';
+    }
+}
+
+function boardToFen(board, sideToMove) {
+    let fen = '';
+    for (let rank = 7; rank >= 0; rank--) {
+        let empty = 0;
+        for (let file = 0; file < 8; file++) {
+            const piece = board[rank][file];
+            if (piece) {
+                if (empty > 0) {
+                    fen += empty;
+                    empty = 0;
+                }
+                let char = piece.type === 'amazon' ? 'A' : 
+                           piece.type === 'rook' ? 'R' : 'K';
+                fen += piece.color === 'white' ? char : char.toLowerCase();
+            } else {
+                empty++;
+            }
+        }
+        if (empty > 0) fen += empty;
+        if (rank > 0) fen += '/';
+    }
+    fen += ' ' + (sideToMove === 'white' ? 'w' : 'b') + ' - - 0 1';
+    return fen;
 }
 
 function updateMoveCounter() {
@@ -718,6 +832,9 @@ function setupEventListeners() {
     document.getElementById('game-select').addEventListener('change', (e) => {
         loadGame(parseInt(e.target.value));
     });
+    
+    // Analyze button
+    document.getElementById('btn-analyze').addEventListener('click', analyzeCurrentPosition);
     
     // Load PGN button
     document.getElementById('btn-load-pgn').addEventListener('click', () => {
